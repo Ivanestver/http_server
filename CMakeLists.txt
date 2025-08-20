@@ -11,8 +11,11 @@ endif()
 
 project ("HTTPServer")
 
-# Добавьте источник в исполняемый файл этого проекта.
-add_executable (HTTPServer "main.cpp")
+include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/headers)
+
+add_subdirectory("src/core")
+add_subdirectory("src/main")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET HTTPServer PROPERTY CXX_STANDARD 20)
