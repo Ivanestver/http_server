@@ -74,9 +74,9 @@ namespace core
 	{
 		Socket sock{ eAF, eST, eProtocol };
 		if (sock.IsInvalid())
-			return { sock, makeErrorMessage("Socket", WSAGetLastError()) };
+			return { std::move(sock), makeErrorMessage("Socket", WSAGetLastError()) };
 		else
-			return { sock, "" };
+			return { std::move(sock), "" };
 	}
 
 	std::string Bind(const sockaddr_in_t* addr, Socket& socket)
@@ -96,7 +96,7 @@ namespace core
 		Socket clientSocket{ accept(*serverSocket, reinterpret_cast<sockaddr_t*>(clientAddr), &clientAddrSize) };
 		return 
 		{
-			clientSocket, 
+			std::move(clientSocket), 
 			clientSocket.IsInvalid() ? makeErrorMessage("Accept", WSAGetLastError()) : std::string{ "" }
 		};
 	}
