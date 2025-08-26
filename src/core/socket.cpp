@@ -1,4 +1,5 @@
 #include "core/socket.h"
+#include "core/net_funcs.h"
 #include <type_traits>
 
 socket_t invalid_socket_t = INVALID_SOCKET;
@@ -16,7 +17,11 @@ namespace core
 	Socket::~Socket()
 	{
 		if (!IsInvalid())
+#ifdef WIN32
 			closesocket(m_socket);
+#elif defined UNIX
+			close(m_socket);
+#endif
 	}
 
 	Socket::Socket(socket_t rawSocket)
