@@ -55,12 +55,12 @@ enum class SockType
 	SEQPACKET	// sequenced packet stream
 };
 
-enum class InAddr
+enum class InAddr : unsigned long
 {
-	ANY,
-	LOOPBACK,
-	BROADCAST,
-	NONE
+	ANY = INADDR_ANY,
+	LOOPBACK = INADDR_LOOPBACK,
+	BROADCAST = INADDR_BROADCAST,
+	NONE = INADDR_NONE
 };
 
 enum class IPProtocol
