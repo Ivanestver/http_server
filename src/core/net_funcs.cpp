@@ -81,8 +81,8 @@ namespace core
 
 	std::string Bind(const sockaddr_in_t* addr, Socket& socket)
 	{
-		int errorCode = bind(*socket, reinterpret_cast<const sockaddr_t*>(addr), sizeof(addr));
-		return std::string();
+		int errorCode = bind(*socket, reinterpret_cast<const sockaddr_t*>(addr), sizeof(*addr));
+		return errorCode >= 0 ? std::string{} : makeErrorMessage("Bind", WSAGetLastError());
 	}
 
 	void Listen(const Socket& server, int queueLength)
