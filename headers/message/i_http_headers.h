@@ -2,7 +2,7 @@
 #include "core/iserializable.h"
 #include "core/str_fw.h"
 
-class IHTTPHeaders : public ISerializable, IDeserializable
+class IHTTPHeaders : public ISerializable, public IDeserializable
 {
 public:
 	virtual ~IHTTPHeaders() = default;

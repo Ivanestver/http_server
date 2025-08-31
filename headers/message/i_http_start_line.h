@@ -2,7 +2,7 @@
 #include "core/iserializable.h"
 #include <any>
 
-class IHTTPStartLine : public ISerializable, IDeserializable
+class IHTTPStartLine : public ISerializable, public IDeserializable
 {
 public:
 	enum class Property

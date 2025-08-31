@@ -5,12 +5,20 @@
 
 namespace message
 {
-	class IHTTPMessage : public ISerializable, IDeserializable
+	class HTTPMessage : public ISerializable, IDeserializable
 	{
 	public:
-		virtual ~IHTTPMessage() = default;
+		virtual ~HTTPMessage() = default;
 
 		virtual const IHTTPStartLine* GetStartLine() const = 0;
+		virtual IHTTPStartLine* GetStartLine() = 0;
+
 		virtual const IHTTPHeaders* GetHeaders() const = 0;
+		virtual IHTTPHeaders* GetHeaders() = 0;
+
+		// Унаследовано через ISerializable
+		Buffer& Serialize(Buffer& buf) const override;
+		// Унаследовано через IDeserializable
+		Buffer& Deserialize(Buffer& buf) override;
 	};
 }
