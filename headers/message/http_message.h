@@ -1,39 +1,10 @@
 #pragma once
-#include <string>
-#include <any>
 #include "core/iserializable.h"
-#include "core/str.h"
+#include "i_http_start_line.h"
+#include "i_http_headers.h"
 
 namespace message
 {
-	class IHTTPStartLine : public ISerializable, IDeserializable
-	{
-	public:
-		enum class Property
-		{
-			Unknown,
-			Method,
-			Target,
-			Protocol,
-			StatusCode,
-			StatusCodeText
-		};
-
-	public:
-		virtual ~IHTTPStartLine() = default;
-
-		virtual std::any GetProperty(IHTTPStartLine::Property property) const = 0;
-		virtual void SetProperty(IHTTPStartLine::Property property, const std::any& propertyValue) = 0;
-	};
-
-	class IHTTPHeaders : public ISerializable, IDeserializable
-	{
-	public:
-		virtual ~IHTTPHeaders() = default;
-
-		virtual const String GetHeader(const String& header) const = 0;
-	};
-
 	class IHTTPMessage : public ISerializable, IDeserializable
 	{
 	public:
