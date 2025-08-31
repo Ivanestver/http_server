@@ -3,15 +3,15 @@
 
 int main()
 {
-	std::string errorMessage = net_core::Startup();
-	if (!errorMessage.empty())
+	String errorMessage = net_core::Startup();
+	if (!errorMessage.is_empty())
 	{
 		std::cout << errorMessage << std::endl;
 		return 1;
 	}
 
 	auto [sock, err] = net_core::CreateSocket(AddressFamily::INET, SockType::STREAM);
-	if (!err.empty())
+	if (!err.is_empty())
 	{
 		std::cout << err << std::endl;
 		return 1;
@@ -21,7 +21,7 @@ int main()
 	net_core::InitSockAddrIn(&addr, 8088, AddressFamily::INET);
 
 	errorMessage = net_core::Bind(&addr, sock);
-	if (!errorMessage.empty())
+	if (!errorMessage.is_empty())
 	{
 		std::cout << errorMessage << std::endl;
 		return 1;
@@ -33,7 +33,7 @@ int main()
 	{
 		sockaddr_in_t clientAddr;
 		auto [clientSock, err] = net_core::Accept(sock, &clientAddr);
-		if (!err.empty())
+		if (!err.is_empty())
 		{
 			std::cout << err << std::endl;
 			continue;
