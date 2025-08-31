@@ -1,9 +1,9 @@
 #pragma once
 
-#include "core/socket.h"
+#include "net_core/socket.h"
 #include <string>
 
-namespace core
+namespace net_core
 {
 	std::string Startup();
 	void ZeroizeMemory(sockaddr_in_t* addr);

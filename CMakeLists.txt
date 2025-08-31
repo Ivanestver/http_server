@@ -3,6 +3,13 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
+# Specify the C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Optional: Disable compiler-specific extensions if not desired
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Включение горячей перезагрузки для компиляторов MSVC, если поддерживается.
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
@@ -15,6 +22,9 @@ include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/headers)
 
 add_subdirectory("src/core")
+add_subdirectory("src/net_core")
+add_subdirectory("src/message")
+add_subdirectory("src/parser")
 add_subdirectory("src/main")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

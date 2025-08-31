@@ -1,7 +1,7 @@
 #pragma once
 #include "platform.h"
 
-namespace core
+namespace net_core
 {
 	class Socket
 	{

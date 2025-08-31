@@ -9,4 +9,4 @@ include_directories(${CMAKE_SOURCE_DIR}/headers)
 # Добавьте источник в исполняемый файл этого проекта.
 add_executable (HTTPServer "main.cpp")
 
-target_link_libraries(HTTPServer core)
+target_link_libraries(HTTPServer net_core)

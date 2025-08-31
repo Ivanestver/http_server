@@ -1,16 +1,16 @@
-﻿#include "core/net_funcs.h"
+﻿#include "net_core/net_funcs.h"
 #include <iostream>
 
 int main()
 {
-	std::string errorMessage = core::Startup();
+	std::string errorMessage = net_core::Startup();
 	if (!errorMessage.empty())
 	{
 		std::cout << errorMessage << std::endl;
 		return 1;
 	}
 
-	auto [sock, err] = core::CreateSocket(AddressFamily::INET, SockType::STREAM);
+	auto [sock, err] = net_core::CreateSocket(AddressFamily::INET, SockType::STREAM);
 	if (!err.empty())
 	{
 		std::cout << err << std::endl;
@@ -18,23 +18,55 @@ int main()
 	}
 
 	sockaddr_in_t addr;
-	core::InitSockAddrIn(&addr, 5555, AddressFamily::INET);
+	net_core::InitSockAddrIn(&addr, 8088, AddressFamily::INET);
 
-	errorMessage = core::Bind(&addr, sock);
+	errorMessage = net_core::Bind(&addr, sock);
 	if (!errorMessage.empty())
 	{
 		std::cout << errorMessage << std::endl;
 		return 1;
 	}
 
-	core::Listen(sock, 0);
+	net_core::Listen(sock, 0);
 
 	while (true)
 	{
 		sockaddr_in_t clientAddr;
-		auto [clientSock, err] = core::Accept(sock, &clientAddr);
+		auto [clientSock, err] = net_core::Accept(sock, &clientAddr);
+		if (!err.empty())
+		{
+			std::cout << err << std::endl;
+			continue;
+		}
+
+		char buffer[1024] = {0};
+		int count = recv(*clientSock, buffer, sizeof(buffer) - 1, 0);
+		if (count > 0)
+			std::cout << buffer << std::endl << std::endl;
+
+		char response[] = "HTTP/1.1 200 OK\r\n"
+			"Content-Type: text/html; charset=UTF-8\r\n"
+			"Content-Length: 100\r\n"
+			"\r\n"
+			"<!DOCTYPE html>\r\n"
+			"<html>\r\n"
+			"<head>\r\n"
+			"\t<title>Hello</title>\r\n"
+			"</head>\r\n"
+			"<body>\r\n"
+			"\t<h1>Hello, World!</h1>\r\n"
+			"</body>\r\n"
+			"</html>\r\n";
+		//char response[] = "answer\r";
+		int iSendResult = send(*clientSock, response, strlen(response), 0);
+		if (iSendResult == SOCKET_ERROR)
+		{
+			std::cout << "send failed with error: %d\n" << WSAGetLastError() << std::endl;
+			continue;
+		}
+		printf("Bytes sent: %d\n", iSendResult);
 	}
 
-	core::ClearUp();
+	net_core::ClearUp();
 	return 0;
 }
