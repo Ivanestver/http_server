@@ -2,6 +2,7 @@
 #include <string>
 #include <any>
 #include "core/iserializable.h"
+#include "core/str.h"
 
 namespace message
 {
