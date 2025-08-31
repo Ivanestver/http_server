@@ -16,9 +16,9 @@ namespace message
 		virtual const IHTTPHeaders* GetHeaders() const = 0;
 		virtual IHTTPHeaders* GetHeaders() = 0;
 
-		// Унаследовано через ISerializable
+		// вЂќРЅР°СЃР»РµРґРѕРІР°РЅРѕ С‡РµСЂРµР· ISerializable
 		Buffer& Serialize(Buffer& buf) const override;
-		// Унаследовано через IDeserializable
+		// вЂќРЅР°СЃР»РµРґРѕРІР°РЅРѕ С‡РµСЂРµР· IDeserializable
 		Buffer& Deserialize(Buffer& buf) override;
 	};
 }

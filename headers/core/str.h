@@ -39,10 +39,10 @@ private:
 	struct Impl;
 	Impl* m_impl{ nullptr };
 
-	// Унаследовано через ISerializable
+	// вЂќРЅР°СЃР»РµРґРѕРІР°РЅРѕ С‡РµСЂРµР· ISerializable
 	Buffer& Serialize(Buffer& buf) const override;
 
-	// Унаследовано через IDeserializable
+	// вЂќРЅР°СЃР»РµРґРѕРІР°РЅРѕ С‡РµСЂРµР· IDeserializable
 	Buffer& Deserialize(Buffer& buf) override;
 };
 
