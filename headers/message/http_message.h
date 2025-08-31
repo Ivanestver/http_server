@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 #include <any>
+#include "core/iserializable.h"
 
 namespace message
 {
-	class IHTTPStartLine
+	class IHTTPStartLine : public ISerializable, IDeserializable
 	{
 	public:
 		enum class Property
@@ -24,15 +25,15 @@ namespace message
 		virtual void SetProperty(IHTTPStartLine::Property property, const std::any& propertyValue) = 0;
 	};
 
-	class IHTTPHeaders
+	class IHTTPHeaders : public ISerializable, IDeserializable
 	{
 	public:
 		virtual ~IHTTPHeaders() = default;
 
-		virtual const std::string GetHeader(const std::string& header) const = 0;
+		virtual const String GetHeader(const String& header) const = 0;
 	};
 
-	class IHTTPMessage
+	class IHTTPMessage : public ISerializable, IDeserializable
 	{
 	public:
 		virtual ~IHTTPMessage() = default;
