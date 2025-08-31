@@ -21,6 +21,8 @@ project ("HTTPServer")
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/headers)
 
+add_compile_definitions(CORE_EXPORTS)
+
 add_subdirectory("src/core")
 add_subdirectory("src/net_core")
 add_subdirectory("src/message")

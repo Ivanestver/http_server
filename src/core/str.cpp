@@ -4,15 +4,27 @@
 #include <stdexcept>
 #include <iostream>
 
-String::String()
-	: m_str{ new char[1] { '\0' } }
+struct String::Impl
 {
+	~Impl()
+	{
+		delete[] m_str;
+	}
+
+	size_t m_length{ 0 };
+	char* m_str{ nullptr };
+};
+
+String::String()
+	: m_impl{ new String::Impl{} }
+{
+	m_impl->m_str = new char[1] { '\0' };
 }
 
 String::String(const char* str)
 {
 	allocNewStr(getSize(str));
-	std::memcpy(m_str, str, m_length);
+	std::memcpy(m_impl->m_str, str, m_impl->m_length);
 }
 
 String::String(const std::string& str)
@@ -32,27 +44,27 @@ String::String(String&& other) noexcept
 
 String& String::operator=(const String& other)
 {
-	allocNewStr(other.m_length);
-	std::memcpy(m_str, other.m_str, m_length);
+	allocNewStr(other.m_impl->m_length);
+	std::memcpy(m_impl->m_str, other.m_impl->m_str, m_impl->m_length);
 	return *this;
 }
 
 String& String::operator=(String&& other) noexcept
 {
-	delete[] m_str;
-	m_str = other.m_str;
-	m_length = other.m_length;
-	other.m_length = 0;
-	other.m_str = new char[1] { '\0' };
+	delete[] m_impl->m_str;
+	m_impl->m_str = other.m_impl->m_str;
+	m_impl->m_length = other.m_impl->m_length;
+	other.m_impl->m_length = 0;
+	other.m_impl->m_str = new char[1] { '\0' };
 	return *this;
 }
 
 String String::operator+(const String& other) const noexcept
 {
-	const size_t newSize = m_length + other.m_length + 1;
+	const size_t newSize = m_impl->m_length + other.m_impl->m_length + 1;
 	char* newS = new char[newSize];
-	std::memcpy(newS, m_str, m_length);
-	std::memcpy(newS + m_length, other.m_str, other.m_length);
+	std::memcpy(newS, m_impl->m_str, m_impl->m_length);
+	std::memcpy(newS + m_impl->m_length, other.m_impl->m_str, other.m_impl->m_length);
 	newS[newSize] = '\0';
 	String s{ newS };
 	delete[] newS;
@@ -61,38 +73,38 @@ String String::operator+(const String& other) const noexcept
 
 void String::operator>>(std::ostream& buf) const noexcept
 {
-	buf << m_str;
+	buf << m_impl->m_str;
 }
 
 String::~String()
 {
-	delete[] m_str;
+	delete m_impl;
 }
 
 char String::operator[](size_t idx) const
 {
-	if (idx >= m_length)
+	if (idx >= m_impl->m_length)
 		throw std::out_of_range("Index was out of bounds");
-	return m_str[idx];
+	return m_impl->m_str[idx];
 }
 
 size_t String::length() const
 {
-	return m_length;
+	return m_impl->m_length;
 }
 
 bool String::is_empty() const
 {
-	return m_length == 0;
+	return m_impl->m_length == 0;
 }
 
 std::vector<String> String::split(char separator) const
 {
 	std::vector<String> substrings;
 	std::vector<char> buf;
-	for (size_t i = 0; i < m_length; ++i)
+	for (size_t i = 0; i < m_impl->m_length; ++i)
 	{
-		if (m_str[i] == separator)
+		if (m_impl->m_str[i] == separator)
 		{
 			buf.emplace_back('\0');
 			substrings.emplace_back(buf.data());
@@ -100,7 +112,7 @@ std::vector<String> String::split(char separator) const
 		}
 		else
 		{
-			buf.emplace_back(m_str[i]);
+			buf.emplace_back(m_impl->m_str[i]);
 		}
 	}
 	buf.emplace_back('\0');
@@ -110,14 +122,14 @@ std::vector<String> String::split(char separator) const
 
 String String::replace(char oldChar, char newChar) const
 {
-	char* newC = new char[m_length + 1];
-	newC[m_length] = '\0';
-	for (size_t i = 0; i < m_length; ++i)
+	char* newC = new char[m_impl->m_length + 1];
+	newC[m_impl->m_length] = '\0';
+	for (size_t i = 0; i < m_impl->m_length; ++i)
 	{
-		if (m_str[i] == oldChar)
+		if (m_impl->m_str[i] == oldChar)
 			newC[i] = newChar;
 		else
-			newC[i] = m_str[i];
+			newC[i] = m_impl->m_str[i];
 	}
 	String s{ newC };
 	delete[] newC;
@@ -126,7 +138,7 @@ String String::replace(char oldChar, char newChar) const
 
 const char* String::data() const
 {
-	return m_str;
+	return m_impl->m_str;
 }
 
 size_t String::getSize(const char* str) const noexcept
@@ -144,16 +156,16 @@ size_t String::getSize(const char* str) const noexcept
 
 void String::allocNewStr(size_t size) noexcept
 {
-	m_length = size;
-	delete[] m_str;
-	m_str = new char[m_length + 1];
-	m_str[m_length] = '\0';
+	m_impl->m_length = size;
+	delete[] m_impl->m_str;
+	m_impl->m_str = new char[m_impl->m_length + 1];
+	m_impl->m_str[m_impl->m_length] = '\0';
 }
 
 Buffer& String::Serialize(Buffer& buf) const
 {
-	buf << m_length;
-	buf.append(m_str, m_length);
+	buf << m_impl->m_length;
+	buf.append(m_impl->m_str, m_impl->m_length);
 	return buf;
 }
 
@@ -161,10 +173,10 @@ Buffer& String::Deserialize(Buffer& buf)
 {
 	size_t size = 0;
 	buf >> size;
-	if (size != m_length)
+	if (size != m_impl->m_length)
 		allocNewStr(size);
 	
-	buf.extractTo(m_str, m_length);
+	buf.extractTo(m_impl->m_str, m_impl->m_length);
 	return buf;
 }
 

@@ -4,7 +4,7 @@
 #include <iosfwd>
 #include <vector>
 
-class String : public ISerializable, public IDeserializable
+class CORE String : public ISerializable, public IDeserializable
 {
 public:
 	String();
@@ -36,8 +36,8 @@ private:
 	inline void allocNewStr(size_t size) noexcept;
 
 private:
-	size_t m_length{ 0 };
-	char* m_str{ nullptr };
+	struct Impl;
+	Impl* m_impl{ nullptr };
 
 	// Унаследовано через ISerializable
 	Buffer& Serialize(Buffer& buf) const override;

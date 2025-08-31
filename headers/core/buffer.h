@@ -4,9 +4,12 @@
 #include <type_traits>
 #include "export_decl.h"
 
-class Buffer
+class CORE Buffer
 {
 public:
+	Buffer();
+	~Buffer();
+
 	const char* data() const;
 	char* data();
 	size_t size() const;
@@ -17,7 +20,8 @@ public:
 	void extractTo(void* dst, size_t dstSize);
 
 private:
-	std::vector<char> m_buf;
+	struct Impl;
+	Impl* m_impl;
 };
 
 template<typename T>

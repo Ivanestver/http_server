@@ -1,7 +1,7 @@
 #pragma once
 #include "buffer.h"
 
-class ISerializable
+class CORE ISerializable
 {
 public:
 	virtual ~ISerializable() = default;
@@ -9,7 +9,7 @@ public:
 	virtual Buffer& Serialize(Buffer& buf) const = 0;
 };
 
-class IDeserializable
+class CORE IDeserializable
 {
 public:
 	virtual ~IDeserializable() = default;
