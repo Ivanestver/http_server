@@ -1,11 +1,13 @@
 #pragma once
 
 #if defined(_WIN32)
-#ifdef MY_DLL_EXPORTS
-#define MY_API __declspec(dllexport)
+#ifdef CORE_EXPORTS
+#define CORE __declspec(dllexport)
+#define EXPIMP_TEMPLATE
 #else
-#define MY_API __declspec(dllimport)
+#define CORE __declspec(dllimport)
+#define EXPIMP_TEMPLATE extern
 #endif
 #else // Linux and other platforms
-#define MY_API __attribute__((visibility("default")))
+#define CORE __attribute__((visibility("default")))
 #endif

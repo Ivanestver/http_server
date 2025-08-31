@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <type_traits>
+#include "export_decl.h"
 
 class Buffer
 {
