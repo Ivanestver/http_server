@@ -2,6 +2,7 @@
 #include "core/iserializable.h"
 #include "i_http_start_line.h"
 #include "i_http_headers.h"
+#include "i_http_body.h"
 
 namespace message
 {
@@ -15,6 +16,9 @@ namespace message
 
 		virtual const IHTTPHeaders* GetHeaders() const = 0;
 		virtual IHTTPHeaders* GetHeaders() = 0;
+
+		virtual const IHTTPBody* GetBody() const = 0;
+		virtual IHTTPBody* GetBody() = 0;
 
 		// ”наследовано через ISerializable
 		Buffer& Serialize(Buffer& buf) const override;
