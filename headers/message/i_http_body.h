@@ -1,7 +1,7 @@
 #pragma once
 #include "core/iserializable.h"
 
-class IHTTPBody :  public ISerializable, public IDeserializable
+class IHTTPBody : public ISerializable, public IDeserializable
 {
 public:
 	virtual ~IHTTPBody() = default;
