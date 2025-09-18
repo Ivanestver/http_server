@@ -1,11 +1,23 @@
 #pragma once
-#include "core/iserializable.h"
-#include "core/str_fw.h"
+#include <string>
+#include <any>
 
-class IHTTPHeaders : public ISerializable, public IDeserializable
+namespace message
 {
-public:
-	virtual ~IHTTPHeaders() = default;
+    class IHTTPHeaders
+    {
+    public:
+        virtual ~IHTTPHeaders() = default;
 
-	virtual const String GetHeader(const String& header) const = 0;
-};
+        virtual const std::any GetHeaderValue(const std::string& headerName) const = 0;
+        virtual void SetHeaderValue(const std::string& headerName, const std::any& headerValue) = 0;
+        virtual bool HasHeader(const std::string& headerName) const = 0;
+
+        // helper function
+        template<typename T>
+        T GetHeaderValueAs(const std::string& headerName) const
+        {
+            return std::any_cast<T>(GetHeaderValue(headerName));
+        }
+    };
+}
