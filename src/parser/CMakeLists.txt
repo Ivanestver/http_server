@@ -1,4 +1,5 @@
-FILE(GLOB HEADERS "${CMAKE_SOURCE_DIR}/headers/parser/*.h")
+FILE(GLOB PUBLIC_HEADERS "${CMAKE_SOURCE_DIR}/headers/parser/*.h")
+FILE(GLOB HEADERS "./*.h")
 FILE(GLOB SRC "./*.cpp")
 
-add_library(parser ${HEADERS} ${SRC})
+add_library(parser ${PUBLIC_HEADERS} ${HEADERS} ${SRC})
