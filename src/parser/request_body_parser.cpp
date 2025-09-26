@@ -3,17 +3,17 @@
 namespace parser
 {
 	template<typename STR>
-	inline PRequestBodyParser createParser(STR&& content, const std::string& mimeType)
+	inline PRequestBodyParser createParser(STR&& content, const String& mimeType)
 	{
 		return nullptr;
 	}
 
-	PRequestBodyParser CreateParser(const std::string& content, const std::string& mimeType)
+	PRequestBodyParser CreateParser(const String& content, const String& mimeType)
 	{
 		return createParser(content, mimeType);
 	}
 
-	PRequestBodyParser CreateParser(std::string&& content, const std::string& mimeType)
+	PRequestBodyParser CreateParser(String&& content, const String& mimeType)
 	{
 		return createParser(std::move(content), mimeType);
 	}

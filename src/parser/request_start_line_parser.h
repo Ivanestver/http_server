@@ -16,12 +16,12 @@ namespace parser
         message::IHTTPRequestStartLine* Parse() override;
 
     private:
-        std::string parseMethod();
-        bool isValidMethod(const std::string method);
-        std::string parsePath();
-        std::string parseProtocol();
+        String parseMethod();
+        bool isValidMethod(const String method);
+        String parsePath();
+        String parseProtocol();
 
-        bool isValidProtocol(const std::string& protocol);
+        bool isValidProtocol(const String& protocol);
     };
 
 }

@@ -2,7 +2,7 @@
 
 namespace message
 {
-    const std::any HTTPHeaders::GetHeaderValue(const std::string& headerName) const
+    const std::any HTTPHeaders::GetHeaderValue(const String& headerName) const
     {
         const auto it = m_headers.find(headerName);
         if (it != m_headers.end())
@@ -10,12 +10,12 @@ namespace message
         return std::any{};
     }
 
-    void HTTPHeaders::SetHeaderValue(const std::string& headerName, const std::any& headerValue)
+    void HTTPHeaders::SetHeaderValue(const String& headerName, const std::any& headerValue)
     {
         m_headers[headerName] = headerValue;
     }
 
-    bool HTTPHeaders::HasHeader(const std::string& headerName) const
+    bool HTTPHeaders::HasHeader(const String& headerName) const
     {
         return m_headers.find(headerName) != m_headers.end();
     }

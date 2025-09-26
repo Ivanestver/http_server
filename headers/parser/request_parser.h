@@ -6,11 +6,11 @@ namespace parser
 	class RequestParser
 	{
 	public:
-		RequestParser(const std::string& request);
+		RequestParser(const String& request);
 
 		const message::IHTTPRequest* Parse();
 
 	private:
-		std::string m_request;
+		String m_request;
 	};
 }

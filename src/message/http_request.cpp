@@ -13,6 +13,7 @@ namespace message
 	{
 		delete m_pStartLine;
 		delete m_pHeaders;
+		delete m_pBody;
 	}
 
 	const IHTTPRequestStartLine* HTTPRequest::GetStartLine() const

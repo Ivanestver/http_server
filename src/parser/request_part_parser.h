@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+#include "core/str.h"
 
 template<typename T>
 class RequestPartParser
@@ -9,7 +9,7 @@ public:
    RequestPartParser(STR&& s_)
       : s{ std::move(s_) }
    {
-      static_assert(std::is_same_v<STR, std::string>, "RequestPartParser::ctor: STR must be of std::string type");
+      static_assert(std::is_same_v<STR, String>, "RequestPartParser::ctor: STR must be of String type");
    }
 
    virtual T* Parse() = 0;
@@ -22,7 +22,7 @@ protected:
 
    inline bool has() const
    {
-      return ptr < s.size();
+      return ptr < s.length();
    }
 
    inline void moveNext()
@@ -38,8 +38,8 @@ protected:
 
    inline bool is_permitted(char toTest) const
    {
-      static std::string s = " \r\n\t";
-      return std::find(s.begin(), s.end(), toTest) == s.end();
+      static String s = " \r\n\t";
+      return s.contains(toTest);
    }
 
    inline bool current_is_permitted() const
@@ -47,14 +47,14 @@ protected:
       return is_permitted(current());
    }
 
-   inline void reset(const std::string& newS = {})
+   inline void reset(const String& newS/* = {}*/)
    {
       ptr = 0;
-      if (!newS.empty())
+      if (!newS.is_empty())
          s = newS;
    }
 
 private:
    size_t ptr{ 0 };
-   std::string s;
+   String s;
 };

@@ -9,18 +9,18 @@ namespace parser
     IHTTPHeaders* RequestHeadersParser::Parse()
     {
         auto* headers = new HTTPHeaders();
-        for (const std::string& line : m_request)
+        for (const String& line : m_request)
         {
             reset(line);
-            const std::string headerName = getNextToken();
+            const String headerName = getNextToken();
             skip_forbidden();
-            std::string value = getNextToken();
+            String value = getNextToken();
             while (true)
             {
                 skip_forbidden();
-                std::string v = getNextToken();
-                if (!v.empty())
-                    value += v;
+                String v = getNextToken();
+                if (!v.is_empty())
+                    value = value + v;
                 else
                     break;
             }
@@ -30,25 +30,25 @@ namespace parser
         return headers;
     }
 
-    const std::string RequestHeadersParser::getNextToken()
+    const String RequestHeadersParser::getNextToken()
     {
-        std::string s;
+        String s;
         for (; has() && current_is_permitted(); moveNext())
         {
-            s += current();
+            s = s + current();
         }
         return s;
     }
 
-    std::string RequestHeadersParser::makeName(const std::string& dirtyName) const
+    String RequestHeadersParser::makeName(const String& dirtyName) const
     {
-        if (dirtyName.size() > 1)
-            return dirtyName.substr(0, dirtyName.size() - 1);
+        if (dirtyName.length() > 1)
+            return dirtyName.substr(0, dirtyName.length() - 1);
         else
             return {};
     }
 
-    std::any RequestHeadersParser::turnIntoAny(std::string s)
+    std::any RequestHeadersParser::turnIntoAny(String s)
     {
         size_t charsCount{ 0 };
         size_t numbersCount{ 0 };
@@ -68,9 +68,9 @@ namespace parser
         else if (numbersCount > 0) // Если имеются только цифры
         {
             if (dotsCount == 0) // Если нет точек, то целое
-                return std::any{ std::stoi(s) };
+                return std::any{ ToIntegral<int>(s) };
             else if (dotsCount == 1) // Если одна точка, то вещественное
-                return std::any{ std::stod(s) };
+                return std::any{ ToFloating<double>(s) };
             else // Иначе неизвестный тип
                 return std::any{};
         }

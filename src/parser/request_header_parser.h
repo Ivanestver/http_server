@@ -8,9 +8,8 @@ namespace parser
     class RequestHeadersParser : public RequestPartParser<message::IHTTPHeaders>
     {
     public:
-        template<typename T>
-        RequestHeadersParser(T&& request)
-            : RequestPartParser(std::string{})
+        RequestHeadersParser(std::vector<String>&& request)
+            : RequestPartParser(String{})
         {
             m_request = std::move(request);
         }
@@ -18,11 +17,11 @@ namespace parser
         message::IHTTPHeaders* Parse() override;
 
     private:
-        const std::string getNextToken();
-        std::string makeName(const std::string& dirtyName) const;
-        std::any turnIntoAny(std::string s);
+        const String getNextToken();
+        String makeName(const String& dirtyName) const;
+        std::any turnIntoAny(String s);
 
     private:
-        std::vector<std::string> m_request;
+        std::vector<String> m_request;
     };
 }

@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include <vector>
+#include "core/str.h"
 
 namespace parser
 {
@@ -9,20 +9,20 @@ namespace parser
     public:
         struct Result
         {
-            std::string m_startLine{ "" };
-            std::vector<std::string> m_headers;
-            std::string m_body;
+            String m_startLine{ "" };
+            std::vector<String> m_headers;
+            String m_body;
         };
 
     public:
-        StringSplitter(const std::string& request);
+        StringSplitter(const String& request);
         Result GetResult();
 
     private:
-        std::string getNextRow();
+        String getNextRow();
 
     private:
-        std::string m_request;
+        String m_request;
         size_t m_ptr{ 0 };
     };
 }

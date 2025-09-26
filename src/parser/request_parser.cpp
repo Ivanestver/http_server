@@ -9,7 +9,7 @@ using namespace message;
 
 namespace parser
 {
-    RequestParser::RequestParser(const std::string& request)
+    RequestParser::RequestParser(const String& request)
         : m_request{ request }
     {
     }
@@ -25,11 +25,11 @@ namespace parser
 
         RequestHeadersParser headersParser{ std::move(result.m_headers) };
         auto headers = std::unique_ptr<IHTTPHeaders>{ headersParser.Parse() };
-        const std::string contentType = "Content-Type";
+        const String contentType = "Content-Type";
         if (!headers || !headers->HasHeader(contentType))
             return nullptr;
 
-        const std::string mimeType = headers->GetHeaderValueAs<std::string>(contentType);
+        const String mimeType = headers->GetHeaderValueAs<String>(contentType);
 
         PRequestBodyParser bodyParser = CreateParser(std::move(result.m_body), mimeType);
         auto body = std::unique_ptr<IHTTPBody>{ bodyParser->Parse() };

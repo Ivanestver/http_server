@@ -6,16 +6,16 @@ namespace message
 	class HTTPRequestStartLine : public IHTTPRequestStartLine
 	{
 	public:
-		HTTPRequestStartLine(const std::string& method, const std::string& path, const std::string& protocol);
+		HTTPRequestStartLine(const String& method, const String& path, const String& protocol);
 
 		// Inherited via IHTTPRequestStartLine
-		const std::string GetMethod() const override;
-		const std::string GetPath() const override;
-		const std::string GetProtocol() const override;
+		const String GetMethod() const override;
+		const String GetPath() const override;
+		const String GetProtocol() const override;
 
 	private:
-		std::string m_method;
-		std::string m_path;
-		std::string m_protocol;
+		String m_method;
+		String m_path;
+		String m_protocol;
 	};
 }

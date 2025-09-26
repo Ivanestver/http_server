@@ -9,18 +9,18 @@ namespace parser
     {
     public:
         template<typename T>
-        RequestBodyParser(T&& content, const std::string& mimeType)
+        RequestBodyParser(T&& content, const String& mimeType)
             : RequestPartParser(std::move(content))
         {
         }
         virtual ~RequestBodyParser() = default;
 
     private:
-        std::string m_mimeType;
+        String m_mimeType;
     };
 
     using PRequestBodyParser = std::unique_ptr<RequestBodyParser>;
 
-    PRequestBodyParser CreateParser(const std::string& content, const std::string& mimeType);
-    PRequestBodyParser CreateParser(std::string&& content, const std::string& mimeType);
+    PRequestBodyParser CreateParser(const String& content, const String& mimeType);
+    PRequestBodyParser CreateParser(String&& content, const String& mimeType);
 }

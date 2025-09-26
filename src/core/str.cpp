@@ -71,9 +71,51 @@ String String::operator+(const String& other) const noexcept
 	return s;
 }
 
+String String::operator+(const std::string& other) const noexcept
+{
+	const size_t newSize = m_impl->m_length + other.length() + 1;
+	char* newS = new char[newSize];
+	std::memcpy(newS, m_impl->m_str, m_impl->m_length);
+	std::memcpy(newS + m_impl->m_length, other.c_str(), other.length());
+	newS[newSize] = '\0';
+	String s{ newS };
+	delete[] newS;
+	return s;
+}
+
+String String::operator+(const char other) const noexcept
+{
+	const size_t newSize = m_impl->m_length + 1;
+	char* newS = new char[newSize];
+	std::memcpy(newS, m_impl->m_str, m_impl->m_length);
+	newS[newSize - 1] = other;
+	newS[newSize] = '\0';
+	String s{ newS };
+	delete[] newS;
+	return s;
+}
+
 void String::operator>>(std::ostream& buf) const noexcept
 {
 	buf << m_impl->m_str;
+}
+
+bool String::operator <(const String& other) const noexcept
+{
+	size_t minSize = std::min(this->length(), other.length());
+	for (size_t i = 0; i < minSize; ++i)
+	{
+		if ((*this)[i] < other[i])
+			return true;
+	}
+
+	for (size_t i = 0; i < minSize; ++i)
+	{
+		if ((*this)[i] > other[i])
+			return false;
+	}
+
+	return this->length() != other.length() || this->length() < other.length();
 }
 
 String::~String()
@@ -136,6 +178,33 @@ String String::replace(char oldChar, char newChar) const
 	return s;
 }
 
+const String String::substr(size_t start, size_t count) const
+{
+	if (start >= count || start >= length() || count > (length() - 1 - start))
+		return String{};
+
+	std::string s;
+	for (size_t i = 0; i < count; ++i)
+		s += m_impl->m_str[start + i];
+	return String{ s };
+}
+
+bool String::contains(const char c) const noexcept
+{
+	return find(c) != -1;
+}
+
+long long String::find(const char c) const noexcept
+{
+	for (size_t i = 0; i < m_impl->m_length; ++i)
+	{
+		if (m_impl->m_str[i] == c)
+			return (long long)i;
+	}
+	
+	return -1;
+}
+
 const char* String::data() const
 {
 	return m_impl->m_str;
@@ -184,4 +253,23 @@ CORE std::ostream& operator<<(std::ostream& buf, const String& s)
 {
 	s >> buf;
 	return buf;
+}
+
+CORE bool operator==(const String& left, const String& right)
+{
+	if (left.length() != right.length())
+		return false;
+
+	for (size_t i = 0; i < left.length(); ++i)
+	{
+		if (left[i] != right[i])
+			return false;
+	}
+
+	return true;
+}
+
+CORE bool operator!=(const String& left, const String& right)
+{
+	return !(left == right);
 }
