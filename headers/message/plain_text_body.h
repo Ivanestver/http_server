@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "message/http_body.h"
 
 namespace message
@@ -8,7 +8,7 @@ namespace message
 	public:
 		RequestPlainTextBody(const String& content, const String& mimeType);
 
-		// Унаследовано через IHTTPBody
+		// вЂќРЅР°СЃР»РµРґРѕРІР°РЅРѕ С‡РµСЂРµР· IHTTPBody
 		std::vector<uint8_t> ToBytes() const override;
 		String ToString() const override;
 		std::unique_ptr<std::istream> ToStream() const override;

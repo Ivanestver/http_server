@@ -1,4 +1,4 @@
-#include "message/plain_text_body.h"
+﻿#include "message/plain_text_body.h"
 #include <sstream>
 
 namespace message

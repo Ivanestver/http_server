@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <vector>
 #include <memory>
 #include "core/str.h"
@@ -22,7 +22,7 @@ namespace message
 	class EmptyBody final : public IHTTPBody
 	{
 	public:
-		// Унаследовано через IHTTPBody
+		// вЂќРЅР°СЃР»РµРґРѕРІР°РЅРѕ С‡РµСЂРµР· IHTTPBody
 		std::vector<uint8_t> ToBytes() const final
 		{
 			return {};

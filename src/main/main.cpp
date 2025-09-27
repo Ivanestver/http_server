@@ -1,8 +1,10 @@
-#include "net_core/net_funcs.h"
+﻿#include "net_core/net_funcs.h"
 #include <iostream>
+#include "parser/request_parser.h"
 
 int main()
 {
+	port_t port = 8088;
 	String errorMessage = net_core::Startup();
 	if (!errorMessage.is_empty())
 	{
@@ -18,7 +20,7 @@ int main()
 	}
 
 	sockaddr_in_t addr;
-	net_core::InitSockAddrIn(&addr, 8088, AddressFamily::INET);
+	net_core::InitSockAddrIn(&addr, port, AddressFamily::INET);
 
 	errorMessage = net_core::Bind(&addr, sock);
 	if (!errorMessage.is_empty())
@@ -28,6 +30,7 @@ int main()
 	}
 
 	net_core::Listen(sock, 0);
+	std::cout << "Started listening on " << port << std::endl;
 
 	while (true)
 	{
@@ -43,6 +46,9 @@ int main()
 		int count = recv(*clientSock, buffer, sizeof(buffer) - 1, 0);
 		if (count > 0)
 			std::cout << buffer << std::endl << std::endl;
+		String s{ buffer };
+		parser::RequestParser requestParser{ s };
+		const message::IHTTPRequest* request = requestParser.Parse();
 
 		char response[] = "HTTP/1.1 200 OK\r\n"
 			"Content-Type: text/html; charset=UTF-8\r\n"

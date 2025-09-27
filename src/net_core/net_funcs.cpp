@@ -1,4 +1,4 @@
-#include "net_core/net_funcs.h"
+﻿#include "net_core/net_funcs.h"
 
 namespace net_core
 {

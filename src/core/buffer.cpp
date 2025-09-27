@@ -1,4 +1,4 @@
-#include "core/buffer.h"
+﻿#include "core/buffer.h"
 
 struct Buffer::Impl
 {

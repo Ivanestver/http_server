@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "core/str.h"
 
 namespace message

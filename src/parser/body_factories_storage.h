@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "core/str.h"
 #include <map>
 #include <type_traits>

@@ -1,4 +1,4 @@
-#include "core/str.h"
+﻿#include "core/str.h"
 #include <string>
 #include <type_traits>
 #include <stdexcept>

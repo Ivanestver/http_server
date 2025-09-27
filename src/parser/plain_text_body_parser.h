@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "request_body_parser.h"
 
 namespace parser
@@ -17,7 +17,7 @@ namespace parser
 	class PlainTextBodyParserFactory : public RequestBodyParserFactory
 	{
 	public:
-		// Унаследовано через RequestBodyParserFactory
+		// вЂќРЅР°СЃР»РµРґРѕРІР°РЅРѕ С‡РµСЂРµР· RequestBodyParserFactory
 		PRequestBodyParser Create(const String& content, const String& mimeType) const override;
 	};
 }

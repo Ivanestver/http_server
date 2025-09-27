@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "export_decl.h"
 #include "iserializable.h"
 #include <iosfwd>

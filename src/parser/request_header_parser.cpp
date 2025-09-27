@@ -1,4 +1,4 @@
-#include <cctype>
+п»ї#include <cctype>
 #include "request_header_parser.h"
 #include "message/http_headers.h"
 
@@ -62,19 +62,19 @@ namespace parser
             else
                 charsCount++;
         }
-        // Теперь проверяем возможные случаи
-        if (charsCount > 0) // Если имеются символы, то это строка
+        // РўРµРїРµСЂСЊ РїСЂРѕРІРµСЂСЏРµРј РІРѕР·РјРѕР¶РЅС‹Рµ СЃР»СѓС‡Р°Рё
+        if (charsCount > 0) // Р•СЃР»Рё РёРјРµСЋС‚СЃСЏ СЃРёРјРІРѕР»С‹, С‚Рѕ СЌС‚Рѕ СЃС‚СЂРѕРєР°
             return std::any{ std::move(s) };
-        else if (numbersCount > 0) // Если имеются только цифры
+        else if (numbersCount > 0) // Р•СЃР»Рё РёРјРµСЋС‚СЃСЏ С‚РѕР»СЊРєРѕ С†РёС„СЂС‹
         {
-            if (dotsCount == 0) // Если нет точек, то целое
+            if (dotsCount == 0) // Р•СЃР»Рё РЅРµС‚ С‚РѕС‡РµРє, С‚Рѕ С†РµР»РѕРµ
                 return std::any{ ToIntegral<int>(s) };
-            else if (dotsCount == 1) // Если одна точка, то вещественное
+            else if (dotsCount == 1) // Р•СЃР»Рё РѕРґРЅР° С‚РѕС‡РєР°, С‚Рѕ РІРµС‰РµСЃС‚РІРµРЅРЅРѕРµ
                 return std::any{ ToFloating<double>(s) };
-            else // Иначе неизвестный тип
+            else // РРЅР°С‡Рµ РЅРµРёР·РІРµСЃС‚РЅС‹Р№ С‚РёРї
                 return std::any{};
         }
-        else // Ни символ, ни число. Т.е. неизвестно что
+        else // РќРё СЃРёРјРІРѕР», РЅРё С‡РёСЃР»Рѕ. Рў.Рµ. РЅРµРёР·РІРµСЃС‚РЅРѕ С‡С‚Рѕ
             return std::any{};
     }
 }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "message/i_http_request_start_line.h"
 
 namespace message

@@ -1,4 +1,4 @@
-FILE(GLOB PUBLIC_HEADERS "${CMAKE_SOURCE_DIR}/headers/parser/*.h")
+﻿FILE(GLOB PUBLIC_HEADERS "${CMAKE_SOURCE_DIR}/headers/parser/*.h")
 FILE(GLOB HEADERS "./*.h")
 FILE(GLOB SRC "./*.cpp")
 
