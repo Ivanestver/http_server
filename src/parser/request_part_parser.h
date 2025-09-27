@@ -39,7 +39,7 @@ protected:
    inline bool is_permitted(char toTest) const
    {
       static String s = " \r\n\t";
-      return s.contains(toTest);
+      return !s.contains(toTest);
    }
 
    inline bool current_is_permitted() const
