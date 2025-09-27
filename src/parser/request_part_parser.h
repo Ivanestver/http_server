@@ -9,7 +9,7 @@ public:
    RequestPartParser(STR&& s_)
       : s{ std::move(s_) }
    {
-      static_assert(std::is_same_v<STR, String>, "RequestPartParser::ctor: STR must be of String type");
+      static_assert(std::is_same_v<std::decay_t<STR>, String>, "RequestPartParser::ctor: STR must be of String type");
    }
 
    virtual T* Parse() = 0;
@@ -52,6 +52,11 @@ protected:
       ptr = 0;
       if (!newS.is_empty())
          s = newS;
+   }
+
+   inline const String& get_raw() const
+   {
+       return s;
    }
 
 private:
