@@ -25,9 +25,12 @@ namespace parser
 
         RequestHeadersParser headersParser{ std::move(result.m_headers) };
         auto headers = std::unique_ptr<IHTTPHeaders>{ headersParser.Parse() };
-        const String contentType = "Content-Type";
-        if (!headers || !headers->HasHeader(contentType))
+        if (!headers)
             return nullptr;
+
+        const String contentType = "Content-Type";
+        if (!headers->HasHeader(contentType))
+            return new HTTPRequest{ startLine.release(), headers.release(), new EmptyBody{} };
 
         const String mimeType = headers->GetHeaderValueAs<String>(contentType);
 
