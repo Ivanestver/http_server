@@ -16,7 +16,7 @@ namespace parser
         }
         virtual ~RequestBodyParser() = default;
 
-        message::IHTTPBody* Parse() override;
+        const String& GetMimeType() const;
 
     private:
         String m_mimeType;
@@ -26,4 +26,12 @@ namespace parser
 
     PRequestBodyParser CreateParser(const String& content, const String& mimeType);
     PRequestBodyParser CreateParser(String&& content, const String& mimeType);
+
+    class RequestBodyParserFactory
+    {
+    public:
+        virtual ~RequestBodyParserFactory() = default;
+
+        virtual PRequestBodyParser Create(const String& content, const String& mimeType) const = 0;
+    };
 }
