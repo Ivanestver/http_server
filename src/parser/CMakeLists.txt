@@ -3,3 +3,5 @@ FILE(GLOB HEADERS "./*.h")
 FILE(GLOB SRC "./*.cpp")
 
 add_library(parser ${PUBLIC_HEADERS} ${HEADERS} ${SRC})
+
+target_link_libraries(parser net_core message)
