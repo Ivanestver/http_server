@@ -7,10 +7,6 @@
 class CORE String : public ISerializable, public IDeserializable
 {
 public:
-	using iterator = char*;
-	using const_iterator = const char*;
-
-public:
 	String();
 	String(const char* str);
 	String(const std::string& str);
@@ -25,7 +21,6 @@ public:
 	String operator +(const char other) const noexcept;
 	void operator >> (std::ostream& buf) const noexcept;
 	void operator << (std::istream& buf) const noexcept;
-	bool operator <(const String& other) const noexcept;
 
 	~String();
 
@@ -42,11 +37,11 @@ public:
 
 	const char* data() const;
 
-	iterator begin();
-	iterator end();
+	std::string::iterator begin();
+	std::string::iterator end();
 
-	const_iterator begin() const;
-	const_iterator end() const;
+	std::string::const_iterator begin() const;
+	std::string::const_iterator end() const;
 
 private:
 	size_t getSize(const char* str) const noexcept;
@@ -67,6 +62,7 @@ CORE std::ostream& operator <<(std::ostream& buf, const String& s);
 CORE std::istream& operator >>(std::istream& buf, String& s);
 CORE bool operator ==(const String& left, const String& right);
 CORE bool operator !=(const String& left, const String& right);
+CORE bool operator <(const String& left, const String& right);
 
 template<typename INTEGRAL>
 INTEGRAL ToIntegral(const String& s)
