@@ -11,9 +11,12 @@ namespace parser
         template<typename T>
         RequestBodyParser(T&& content, const String& mimeType)
             : RequestPartParser(std::move(content))
+            , m_mimeType{ mimeType }
         {
         }
         virtual ~RequestBodyParser() = default;
+
+        message::IHTTPBody* Parse() override;
 
     private:
         String m_mimeType;

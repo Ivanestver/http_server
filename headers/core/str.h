@@ -24,6 +24,7 @@ public:
 	String operator +(const std::string& other) const noexcept;
 	String operator +(const char other) const noexcept;
 	void operator >> (std::ostream& buf) const noexcept;
+	void operator << (std::istream& buf) const noexcept;
 	bool operator <(const String& other) const noexcept;
 
 	~String();
@@ -63,6 +64,7 @@ private:
 };
 
 CORE std::ostream& operator <<(std::ostream& buf, const String& s);
+CORE std::istream& operator >>(std::istream& buf, String& s);
 CORE bool operator ==(const String& left, const String& right);
 CORE bool operator !=(const String& left, const String& right);
 

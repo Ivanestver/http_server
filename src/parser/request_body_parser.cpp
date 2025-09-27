@@ -17,4 +17,9 @@ namespace parser
 	{
 		return createParser(std::move(content), mimeType);
 	}
+
+	message::IHTTPBody* RequestBodyParser::Parse()
+	{
+		return nullptr;
+	}
 }

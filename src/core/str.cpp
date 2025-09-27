@@ -100,6 +100,11 @@ void String::operator>>(std::ostream& buf) const noexcept
 	buf << m_impl->m_str;
 }
 
+void String::operator<<(std::istream& buf) const noexcept
+{
+	buf >> m_impl->m_str;
+}
+
 bool String::operator <(const String& other) const noexcept
 {
 	size_t minSize = std::min(this->length(), other.length());
@@ -252,6 +257,12 @@ Buffer& String::Deserialize(Buffer& buf)
 CORE std::ostream& operator<<(std::ostream& buf, const String& s)
 {
 	s >> buf;
+	return buf;
+}
+
+CORE std::istream& operator>>(std::istream& buf, const String& s)
+{
+	s << buf;
 	return buf;
 }
 
