@@ -1,6 +1,7 @@
 #pragma once
 #include "core/str.h"
 #include "enum_status_code.h"
+#include "core/optional.h"
 
 namespace message
 {
@@ -9,6 +10,6 @@ namespace message
 	public:
 		virtual String GetProtocol() const = 0;
 		virtual StatusCode GetStatusCode() const = 0;
-		virtual String GetReasonPhrase() const = 0;
+		virtual std::optional<String> GetReasonPhrase() const = 0;
 	};
 }
