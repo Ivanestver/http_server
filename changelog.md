@@ -1,3 +1,9 @@
+## [0.1.1] - 2025.11.16
+
+### Fixed
+- Fixed the name of the class IHTTTPResponseStartLine: the extra 'T' is removed.
+- In the own implementation of std::optional the structs in_place_t and is_swappable and the global variable in_place are hidden in the macro when c++14 and lower.
+
 ## [0.1] - 2025.11.16
 
 ### Added
