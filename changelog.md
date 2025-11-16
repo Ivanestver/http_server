@@ -1,3 +1,9 @@
+## [0.2] - 2025.11.16
+
+### Added
+- HTTPResponse class that represents an http response to a client.
+- Example to send the response back to the client connected. This example shows the code works
+
 ## [0.1.4] - 2025.11.16
 
 ### Added
