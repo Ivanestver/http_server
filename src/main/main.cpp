@@ -1,6 +1,7 @@
 ﻿#include "net_core/net_funcs.h"
 #include <iostream>
 #include "parser/request_parser.h"
+#include "message/http_response.h"
 
 int main()
 {
@@ -50,21 +51,21 @@ int main()
 		parser::RequestParser requestParser{ s };
 		const message::IHTTPRequest* request = requestParser.Parse();
 
-		char response[] = "HTTP/1.1 200 OK\r\n"
-			"Content-Type: text/html; charset=UTF-8\r\n"
-			"Content-Length: 100\r\n"
-			"\r\n"
-			"<!DOCTYPE html>\r\n"
-			"<html>\r\n"
-			"<head>\r\n"
-			"\t<title>Hello</title>\r\n"
-			"</head>\r\n"
-			"<body>\r\n"
-			"\t<h1>Hello, World!</h1>\r\n"
-			"</body>\r\n"
-			"</html>\r\n";
-		//char response[] = "answer\r";
-		int iSendResult = send(*clientSock, response, strlen(response), 0);
+		message::HTTPResponse response;
+		response.SetStatusCode(message::StatusCode::OK);
+		response.SetHeader("Content-Type", "text/html; charset = UTF-8");
+		auto bodyWriter = response.GetBodyWriter();
+		bodyWriter.WriteLine("<!DOCTYPE html>")
+			.WriteLine("<html>")
+			.WriteLine("<head>")
+			.WriteLine("\t<title>Hello</title>")
+			.WriteLine("</head>")
+			.WriteLine("<body>")
+			.WriteLine("\t<h1>Hello, World!</h1>")
+			.WriteLine("</body>")
+			.WriteLine("</html>");
+		const std::vector<uint8_t> responseRaw = response.toBytes();
+		int iSendResult = send(*clientSock, (const char*)responseRaw.data(), responseRaw.size(), 0);
 		if (iSendResult == SOCKET_ERROR)
 		{
 			std::cout << "send failed with error: %d\n" << WSAGetLastError() << std::endl;
