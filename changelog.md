@@ -10,6 +10,7 @@
 ## [0.3.0] - 2025.11.17
 
 ### Added
+=======
 - Add hash of String.
 - Add server class that encapsulates server logic and provides functionality to set routing.
 
