@@ -1,3 +1,12 @@
+## [0.1.2] - 2025.11.16
+
+### Added
+- Parsing String class into Buffer.
+
+### Fixed
+- Add inline to operator<< of Buffer.
+- Add conversion of Buffer into byte array.
+
 ## [0.1.1] - 2025.11.16
 
 ### Fixed
