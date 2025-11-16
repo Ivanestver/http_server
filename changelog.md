@@ -1,3 +1,8 @@
+## [0.1.4] - 2025.11.16
+
+### Added
+- Function to receive the header keys.
+
 ## [0.1.3] - 2025.11.16
 
 ### Added
