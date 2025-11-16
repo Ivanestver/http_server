@@ -244,6 +244,11 @@ CORE std::istream& operator>>(std::istream& buf, const String& s)
 	return buf;
 }
 
+CORE Buffer& operator <<(Buffer& buf, const String& s)
+{
+	return buf << s.data();
+}
+
 CORE bool operator==(const String& left, const String& right)
 {
 	if (left.length() != right.length())
@@ -276,5 +281,7 @@ CORE bool operator<(const String& left, const String& right)
 
 		return true;
 	}
-	return left.length() == minSize;
+	if (left.length() == right.length())
+		return false;
+	return left.length() < right.length();
 }

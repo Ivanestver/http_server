@@ -60,6 +60,7 @@ private:
 
 CORE std::ostream& operator <<(std::ostream& buf, const String& s);
 CORE std::istream& operator >>(std::istream& buf, String& s);
+CORE Buffer& operator <<(Buffer& buf, const String& s);
 CORE bool operator ==(const String& left, const String& right);
 CORE bool operator !=(const String& left, const String& right);
 CORE bool operator <(const String& left, const String& right);
