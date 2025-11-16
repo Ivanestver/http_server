@@ -1,6 +1,10 @@
 #pragma once
 
-#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L) && (!defined(SERVER_USE_OWN_IMPL_OPTIONAL))
+#ifndef IS_CXX17
+#define IS_CXX17 ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
+#endif
+
+#if (IS_CXX17) && (!defined(SERVER_USE_OWN_IMPL_OPTIONAL))
 #include <optional>
 #else
 
@@ -18,17 +22,19 @@ namespace std
 		{}
 	};
 
+#ifndef IS_CXX17
 	struct in_place_t { explicit in_place_t() = default; };
 	constexpr in_place_t in_place{};
-
-	struct nullopt_t { constexpr explicit nullopt_t() = default; };
-	constexpr nullptr_t nullopt{};
 
 	template<class T>
 	struct is_swappable
 	{
 		static constexpr bool value = true;
 	};
+#endif
+
+	struct nullopt_t { constexpr explicit nullopt_t() = default; };
+	constexpr nullptr_t nullopt{};
 
 	template<class T>
 	class optional;
@@ -486,9 +492,9 @@ namespace std
 	}
 
 	template<class T, class U, class... Args,
-		enable_if<
-		is_constructible<T, initializer_list<U>&, Args...>::value
-		, bool
+		typename enable_if<
+			is_constructible<T, initializer_list<U>&, Args...>::value
+			, bool
 		>::type = true
 	>
 	constexpr optional<T> make_optional(initializer_list<U> ilist, Args&&... args)
