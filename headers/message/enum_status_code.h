@@ -13,4 +13,6 @@ namespace message
 		NOT_FOUND = 404,
 		// Server error responses
 	};
+
+	const char* StatusCodeAsStr(StatusCode statusCode);
 }

@@ -8,11 +8,12 @@ namespace message
 	{
 	public:
 		// Inherited via IHTTPHeaders
-		const THeaderName GetHeaderValue(const THeaderName& headerName) const final;
-		void SetHeaderValue(const THeaderName& headerName, const THeaderValue& headerValue) final;
-		bool HasHeader(const THeaderName& headerName) const final;
+		const THeaderKey GetHeaderValue(const THeaderKey& headerName) const final;
+		void SetHeaderValue(const THeaderKey& headerName, const THeaderValue& headerValue) final;
+		bool HasHeader(const THeaderKey& headerName) const final;
+		const std::vector<THeaderKey> GetHeaderKeys() const final;
 
 	private:
-		std::map<THeaderName, THeaderValue> m_headers;
+		std::map<THeaderKey, THeaderValue> m_headers;
 	};
 }
