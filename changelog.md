@@ -1,3 +1,12 @@
+## [1.0.0] - 2025.11.17
+
+### Added
+- The first release of the http server. It provides:
+* Setting up port to listen to.
+* Routing.
+* All HTTP methods support (basic).
+* Writing any type of info into response.
+
 ## [0.3.0] - 2025.11.17
 
 ### Added
