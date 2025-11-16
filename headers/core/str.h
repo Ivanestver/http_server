@@ -105,3 +105,15 @@ FLOATING ToFloating(const String& s)
 	}
 	return floating;
 }
+
+namespace std
+{
+	template<>
+	struct hash<String>
+	{
+		std::size_t operator()(const String& str) const
+		{
+			return std::hash<std::string>{}(std::string{ str.data() });
+		}
+	};
+}
