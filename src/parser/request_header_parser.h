@@ -19,7 +19,6 @@ namespace parser
     private:
         const String getNextToken();
         String makeName(const String& dirtyName) const;
-        std::any turnIntoAny(String s);
 
     private:
         std::vector<String> m_request;

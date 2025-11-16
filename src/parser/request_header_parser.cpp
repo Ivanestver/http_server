@@ -25,7 +25,7 @@ namespace parser
                     break;
             }
 
-            headers->SetHeaderValue(makeName(headerName), turnIntoAny(value));
+            headers->SetHeaderValue(makeName(headerName), value);
         }
         return headers;
     }
@@ -46,35 +46,5 @@ namespace parser
             return dirtyName.substr(0, dirtyName.length() - 1);
         else
             return {};
-    }
-
-    std::any RequestHeadersParser::turnIntoAny(String s)
-    {
-        size_t charsCount{ 0 };
-        size_t numbersCount{ 0 };
-        size_t dotsCount{ 0 };
-        for (char c : s)
-        {
-            if (std::isdigit(c))
-                numbersCount++;
-            else if (c == '.')
-                dotsCount++;
-            else
-                charsCount++;
-        }
-        // Теперь проверяем возможные случаи
-        if (charsCount > 0) // Если имеются символы, то это строка
-            return std::any{ std::move(s) };
-        else if (numbersCount > 0) // Если имеются только цифры
-        {
-            if (dotsCount == 0) // Если нет точек, то целое
-                return std::any{ ToIntegral<int>(s) };
-            else if (dotsCount == 1) // Если одна точка, то вещественное
-                return std::any{ ToFloating<double>(s) };
-            else // Иначе неизвестный тип
-                return std::any{};
-        }
-        else // Ни символ, ни число. Т.е. неизвестно что
-            return std::any{};
     }
 }

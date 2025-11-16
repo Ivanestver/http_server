@@ -32,7 +32,7 @@ namespace parser
         if (!headers->HasHeader(contentType))
             return new HTTPRequest{ startLine.release(), headers.release(), new EmptyBody{} };
 
-        const String mimeType = headers->GetHeaderValueAs<String>(contentType);
+        const THeaderValue mimeType = headers->GetHeaderValue(contentType);
 
         PRequestBodyParser bodyParser = CreateParser(std::move(result.m_body), mimeType);
         auto body = std::unique_ptr<IHTTPBody>{ bodyParser->Parse() };

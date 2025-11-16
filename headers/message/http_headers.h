@@ -8,11 +8,11 @@ namespace message
 	{
 	public:
 		// Inherited via IHTTPHeaders
-		const std::any GetHeaderValue(const String& headerName) const final;
-		void SetHeaderValue(const String& headerName, const std::any& headerValue) final;
-		bool HasHeader(const String& headerName) const final;
+		const THeaderName GetHeaderValue(const THeaderName& headerName) const final;
+		void SetHeaderValue(const THeaderName& headerName, const THeaderValue& headerValue) final;
+		bool HasHeader(const THeaderName& headerName) const final;
 
 	private:
-		std::map<String, std::any> m_headers;
+		std::map<THeaderName, THeaderValue> m_headers;
 	};
 }
