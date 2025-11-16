@@ -1,6 +1,6 @@
 #pragma once
 
-#if (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L
+#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L) && (!defined(SERVER_USE_OWN_IMPL_OPTIONAL))
 #include <optional>
 #else
 

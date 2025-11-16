@@ -22,6 +22,8 @@ include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/headers)
 
 add_compile_definitions(CORE_EXPORTS)
+# Use the project's own implementation of std::optional
+add_compile_definitions(SERVER_USE_OWN_IMPL_OPTIONAL)
 
 add_subdirectory("src/core")
 add_subdirectory("src/net_core")
