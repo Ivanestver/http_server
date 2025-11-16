@@ -1,3 +1,11 @@
+## [0.1.3] - 2025.11.16
+
+### Added
+- Function to convert a status code into string.
+
+### Fixed
+- Rename the pseudonym of a header key.
+
 ## [0.1.2] - 2025.11.16
 
 ### Added
