@@ -1,7 +1,13 @@
-## [0.2.1] - 2025.11.7
+## [0.3.0] - 2025.11.17
 
 ### Added
-- Hash of String
+- Add hash of String.
+- Add server class that encapsulates server logic and provides functionality to set routing.
+
+## [0.2.1] - 2025.11.17
+
+### Added
+- Hash of String.
 
 ## [0.2] - 2025.11.16
 
