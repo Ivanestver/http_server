@@ -26,6 +26,11 @@ char* Buffer::data()
 	return m_impl->m_buf.data();
 }
 
+std::vector<uint8_t> Buffer::to_bytes() const
+{
+	return std::vector<uint8_t>(m_impl->m_buf.begin(), m_impl->m_buf.end());
+}
+
 size_t Buffer::size() const
 {
 	return m_impl->m_buf.size();

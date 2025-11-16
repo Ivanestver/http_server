@@ -12,6 +12,7 @@ public:
 
 	const char* data() const;
 	char* data();
+	std::vector<uint8_t> to_bytes() const;
 	size_t size() const;
 	void resize(size_t newSize);
 	void expand(size_t additional);
@@ -25,7 +26,7 @@ private:
 };
 
 template<typename T>
-Buffer& operator <<(Buffer& buf, T value)
+inline Buffer& operator <<(Buffer& buf, T value)
 {
 	static_assert(std::is_fundamental_v<T>, "Buffer::operator<<: T must be a primitive-like type. Overload it if needed");
 	buf.append(&value, sizeof(value));
@@ -33,9 +34,21 @@ Buffer& operator <<(Buffer& buf, T value)
 }
 
 template<typename T>
-Buffer& operator >>(Buffer& buf, T& value)
+inline Buffer& operator >>(Buffer& buf, T& value)
 {
 	static_assert(std::is_fundamental_v<T>, "Buffer::operator>>: T must be a primitive-like type. Overload it if needed");
 	buf.extractTo(&value, sizeof(value));
 	return buf;
+}
+
+inline Buffer& operator<<(Buffer& buf, const std::string& s)
+{
+	for (char c : s)
+		buf << c;
+	return buf;
+}
+
+inline Buffer& operator <<(Buffer& buf, const char* value)
+{
+	return buf << std::string{ value };
 }
