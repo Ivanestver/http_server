@@ -29,6 +29,7 @@ add_subdirectory("src/core")
 add_subdirectory("src/net_core")
 add_subdirectory("src/message")
 add_subdirectory("src/parser")
+add_subdirectory("src/server")
 add_subdirectory("src/main")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
