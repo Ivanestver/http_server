@@ -5,9 +5,11 @@
 
 namespace message
 {
-	class IHTTTPResponseStartLine
+	class IHTTPResponseStartLine
 	{
 	public:
+		virtual ~IHTTPResponseStartLine() = default;
+
 		virtual String GetProtocol() const = 0;
 		virtual StatusCode GetStatusCode() const = 0;
 		virtual std::optional<String> GetReasonPhrase() const = 0;
