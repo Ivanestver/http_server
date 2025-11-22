@@ -1,11 +1,12 @@
 ﻿#pragma once
+#include "message/export_decl.h"
 #include <vector>
 #include <memory>
 #include "core/str.h"
 
 namespace message
 {
-	class IHTTPBody
+	class MESSAGE IHTTPBody
 	{
 	public:
 		virtual ~IHTTPBody() = default;
@@ -19,7 +20,7 @@ namespace message
 	};
 
 	// Class that provides the empty body behavior
-	class EmptyBody final : public IHTTPBody
+	class MESSAGE EmptyBody final : public IHTTPBody
 	{
 	public:
 		// ”наследовано через IHTTPBody

@@ -20,8 +20,8 @@ project ("HTTPServer")
 
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/headers)
+include(cmake/define_library.cmake)
 
-add_compile_definitions(CORE_EXPORTS)
 # Use the project's own implementation of std::optional
 add_compile_definitions(SERVER_USE_OWN_IMPL_OPTIONAL)
 
@@ -37,3 +37,15 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
+if (WIN32)
+	set(INSTALL_DIR ${CMAKE_SOURCE_DIR}/Release)
+	set(INSTALL_DIR_LIBRARY ${INSTALL_DIR}/lib)
+	set(INSTALL_DIR_ARCHIVE ${INSTALL_DIR}/arch)
+	make_directory(${INSTALL_DIR})
+endif()
+
+install(TARGETS HTTPServer core net_core message parser server
+	RUNTIME DESTINATION ${INSTALL_DIR} CONFIGURATIONS Release
+	LIBRARY DESTINATION ${INSTALL_DIR_LIBRARY} CONFIGURATIONS Release
+	ARCHIVE DESTINATION ${INSTALL_DIR_ARCHIVE} CONFIGURATIONS Release
+)

@@ -1,7 +1,9 @@
-﻿FILE(GLOB PUBLIC_HEADERS "${CMAKE_SOURCE_DIR}/headers/net_core/*.h")
-FILE(GLOB HEADERS "./*.h")
-FILE(GLOB SRC "./*.cpp")
+﻿define_library(
+	TARGET net_core
+	SRC
+		${PUBLIC_HEADERS}
+		${HEADERS}
+		${SRC}
+)
 
-add_library(net_core ${PUBLIC_HEADERS} ${HEADERS} ${SRC})
-
-target_link_libraries(net_core core)
+target_link_libraries(net_core PRIVATE core)

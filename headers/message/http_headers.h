@@ -4,7 +4,7 @@
 
 namespace message
 {
-	class HTTPHeaders : public IHTTPHeaders
+	class MESSAGE HTTPHeaders : public IHTTPHeaders
 	{
 	public:
 		// Inherited via IHTTPHeaders

@@ -1,5 +1,5 @@
-﻿FILE(GLOB PUBLIC_HEADERS "${CMAKE_SOURCE_DIR}/headers/message/*.h")
-FILE(GLOB HEADERS "./*.h")
-FILE(GLOB SRC "./*.cpp")
+﻿DEFINE_LIBRARY(
+	TARGET message
+)
 
-add_library(message ${PUBLIC_HEADERS} ${HEADERS} ${SRC})
+target_link_libraries(message core)

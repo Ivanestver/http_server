@@ -1,4 +1,10 @@
-## [1.0.1] - 2025.11.17
+## [1.1.0] - 2025.11.23
+
+### Added
+- CMake function define_library that creates a shared library: searches files, adds a library, creates an exports file, connects with binary directory.
+- Using the define_library function, make all libraries as shared
+
+## [1.0.1] - 2025.11.23
 
 ### Fixed
 - Some memory improvements

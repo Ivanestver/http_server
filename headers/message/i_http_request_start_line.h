@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include "core/str.h"
+#include "message/export_decl.h"
 
 namespace message
 {
-	class IHTTPRequestStartLine
+	class MESSAGE IHTTPRequestStartLine
 	{
 	public:
 		virtual const String GetMethod() const = 0;
