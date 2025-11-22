@@ -2,7 +2,7 @@
 
 namespace message
 {
-	enum class StatusCode
+	enum class StatusCode : unsigned short
 	{
 		// Informational responses
 		// Successful responses

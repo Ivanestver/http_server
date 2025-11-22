@@ -48,8 +48,8 @@ namespace message
 		std::vector<uint8_t> toBytes();
 
 	private:
-		StatusCode m_statusCode{ StatusCode::OK };
 		HTTPHeaders m_headers;
 		Buffer m_body;
+		StatusCode m_statusCode{ StatusCode::OK };
 	};
 }
