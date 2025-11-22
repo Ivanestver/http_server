@@ -1,13 +1,14 @@
 ﻿#pragma once
 #include "core/str.h"
 #include <vector>
+#include "message/export_decl.h"
 
 namespace message
 {
 	using THeaderKey = String;
 	using THeaderValue = String;
 
-    class IHTTPHeaders
+    class MESSAGE IHTTPHeaders
     {
     public:
         virtual ~IHTTPHeaders() = default;

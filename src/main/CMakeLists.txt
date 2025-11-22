@@ -9,4 +9,9 @@ include_directories(${CMAKE_SOURCE_DIR}/headers)
 # Добавьте источник в исполняемый файл этого проекта.
 add_executable (HTTPServer "main.cpp")
 
-target_link_libraries(HTTPServer server)
+target_link_libraries(HTTPServer PUBLIC server)
+
+# And to your executable's CMakeLists.txt
+set_target_properties(HTTPServer PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)

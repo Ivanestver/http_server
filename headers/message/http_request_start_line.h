@@ -3,7 +3,7 @@
 
 namespace message
 {
-	class HTTPRequestStartLine : public IHTTPRequestStartLine
+	class MESSAGE HTTPRequestStartLine : public IHTTPRequestStartLine
 	{
 	public:
 		HTTPRequestStartLine(const String& method, const String& path, const String& protocol);

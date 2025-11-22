@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include "enum_status_code.h"
 #include "http_headers.h"
+#include "message/export_decl.h"
 
 namespace message
 {
@@ -38,7 +39,7 @@ namespace message
 		Buffer* buf;
 	};
 
-	class HTTPResponse
+	class MESSAGE HTTPResponse
 	{
 	public:
 		void SetStatusCode(StatusCode statusCode);

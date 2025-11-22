@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include "platform.h"
+#include "net_core/export_decl.h"
 
 namespace net_core
 {
-	class Socket
+	class NET_CORE Socket
 	{
 	public:
 		Socket(AddressFamily eAF, SockType eST, IPProtocol eProtocol = IPProtocol::UNSPEC);

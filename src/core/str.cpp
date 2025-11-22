@@ -219,24 +219,24 @@ void String::allocNewStr(size_t size) noexcept
 	m_impl->m_str.resize(size);
 }
 
-CORE std::ostream& operator<<(std::ostream& buf, const String& s)
+std::ostream& operator<<(std::ostream& buf, const String& s)
 {
 	s >> buf;
 	return buf;
 }
 
-CORE std::istream& operator>>(std::istream& buf, const String& s)
+std::istream& operator>>(std::istream& buf, const String& s)
 {
 	s << buf;
 	return buf;
 }
 
-CORE Buffer& operator <<(Buffer& buf, const String& s)
+Buffer& operator <<(Buffer& buf, const String& s)
 {
 	return buf << s.data();
 }
 
-CORE bool operator==(const String& left, const String& right)
+bool operator==(const String& left, const String& right)
 {
 	if (left.length() != right.length())
 		return false;
@@ -250,12 +250,12 @@ CORE bool operator==(const String& left, const String& right)
 	return true;
 }
 
-CORE bool operator!=(const String& left, const String& right)
+bool operator!=(const String& left, const String& right)
 {
 	return !(left == right);
 }
 
-CORE bool operator<(const String& left, const String& right)
+bool operator<(const String& left, const String& right)
 {
 	size_t minSize = std::min(left.length(), right.length());
 	for (size_t i = 0; i < minSize; ++i)

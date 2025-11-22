@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <type_traits>
-#include "export_decl.h"
+#include "core/export_decl.h"
 
 class CORE Buffer
 {

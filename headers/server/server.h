@@ -5,10 +5,11 @@
 #include "message/http_response.h"
 #include <functional>
 #include <unordered_map>
+#include "server/export_decl.h"
 
 namespace server
 {
-	class Server
+	class SERVER Server
 	{
 	public:
 		using Handler = std::function<void(const message::IHTTPRequest*, message::HTTPResponse&)>;

@@ -2,10 +2,11 @@
 #include "i_http_request_start_line.h"
 #include "i_http_headers.h"
 #include "i_http_body.h"
+#include "message/export_decl.h"
 
 namespace message
 {
-	class IHTTPRequest
+	class MESSAGE IHTTPRequest
 	{
 	public:
 		virtual ~IHTTPRequest() = default;

@@ -3,7 +3,7 @@
 
 namespace message
 {
-	class RequestPlainTextBody : public HTTPBody
+	class MESSAGE RequestPlainTextBody : public HTTPBody
 	{
 	public:
 		RequestPlainTextBody(const String& content, const String& mimeType);

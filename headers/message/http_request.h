@@ -3,7 +3,7 @@
 
 namespace message
 {
-	class HTTPRequest : public IHTTPRequest
+	class MESSAGE HTTPRequest : public IHTTPRequest
 	{
 	public:
 		HTTPRequest(const IHTTPRequestStartLine* pStartLine, const IHTTPHeaders* pHeaders, const IHTTPBody* pBody);

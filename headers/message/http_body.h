@@ -3,7 +3,7 @@
 
 namespace message
 {
-	class HTTPBody : public IHTTPBody
+	class MESSAGE HTTPBody : public IHTTPBody
 	{
 	public:
 		explicit HTTPBody(const String& mimeType);

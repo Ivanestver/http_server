@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include "message/i_http_request.h"
+#include "parser/export_decl.h"
 
 namespace parser
 {
-	class RequestParser
+	class PARSER RequestParser
 	{
 	public:
 		RequestParser(const String& request);

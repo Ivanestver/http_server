@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "export_decl.h"
-#include <iosfwd>
+#include "str_fw.h"
 #include <vector>
 #include <string>
 #include "buffer.h"
