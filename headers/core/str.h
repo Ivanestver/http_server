@@ -1,10 +1,11 @@
 ﻿#pragma once
 #include "export_decl.h"
-#include "iserializable.h"
 #include <iosfwd>
 #include <vector>
+#include <string>
+#include "buffer.h"
 
-class CORE String : public ISerializable, public IDeserializable
+class CORE String
 {
 public:
 	String();
@@ -50,12 +51,6 @@ private:
 private:
 	struct Impl;
 	Impl* m_impl{ nullptr };
-
-	// ”наследовано через ISerializable
-	Buffer& Serialize(Buffer& buf) const override;
-
-	// ”наследовано через IDeserializable
-	Buffer& Deserialize(Buffer& buf) override;
 };
 
 CORE std::ostream& operator <<(std::ostream& buf, const String& s);

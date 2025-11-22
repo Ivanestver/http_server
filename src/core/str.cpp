@@ -219,19 +219,6 @@ void String::allocNewStr(size_t size) noexcept
 	m_impl->m_str.resize(size);
 }
 
-Buffer& String::Serialize(Buffer& buf) const
-{
-	buf << (int)length();
-	for (char c : m_impl->m_str)
-		buf << c;
-	return buf;
-}
-
-Buffer& String::Deserialize(Buffer& buf)
-{
-	return buf;
-}
-
 CORE std::ostream& operator<<(std::ostream& buf, const String& s)
 {
 	s >> buf;
