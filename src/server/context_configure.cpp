@@ -7,8 +7,10 @@ namespace server
 
 	void ConfigureContext()
 	{
-		const String pathToRoot{ "./" };
-		context.reset(new Context{ pathToRoot });
+		ContextSettings settings;
+		settings.m_pathToRoot = "./";
+		settings.m_resourcePath = "./resources";
+		context.reset(new Context{ settings });
 	}
 
 	Context* GetInnerContext()
