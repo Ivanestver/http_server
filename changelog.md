@@ -1,3 +1,8 @@
+## [1.1.1] - 2025.11.23
+
+### Fixed
+- The .exe, .dlls and .libs are distributed in different directories after installation.
+
 ## [1.1.0] - 2025.11.23
 
 ### Added
