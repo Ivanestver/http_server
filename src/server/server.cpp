@@ -3,6 +3,7 @@
 #include "parser/request_parser.h"
 #include "message/http_response.h"
 #include <memory>
+#include "context_configure.h"
 
 namespace server
 {
@@ -13,6 +14,8 @@ namespace server
 
 	void Server::Run(port_t port)
 	{
+		ConfigureContext();
+
 		String errorMessage = net_core::Startup();
 		if (!errorMessage.is_empty())
 		{
