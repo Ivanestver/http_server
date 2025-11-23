@@ -1,3 +1,16 @@
+## [2.0.0] - 2025.11.23
+
+## Added
+- Send static files as the answer.
+- Application Context class that contains the app settings.
+- The server is now configured through functions.
+- CMake function define_library that creates a shared library: searches files, adds a library, creates an exports file, connects with binary directory.
+- Using the define_library function, make all libraries as shared
+
+### Fixed
+- Some memory improvements
+- The .exe, .dlls and .libs are distributed in different directories after installation.
+
 ## [1.2.0] - 2025.11.23
 
 ## Added
