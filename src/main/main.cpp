@@ -1,27 +1,30 @@
 ﻿#include <iostream>
-#include "server/server.h"
+#include "server/context.h"
+#include "net_core/platform.h"
+#include "server/server_settings.h"
 
-int main()
+using namespace server;
+
+int main(int argc, char* argv[])
 {
 	port_t port = 8088;
-	server::Server server;
 
-	server.AddHandler("/", [](const message::IHTTPRequest* request, message::HTTPResponse& response)
+	server::AddHandler("/", [](const message::IHTTPRequest* request, message::HTTPResponse& response)
 		{
-			response.SetStatusCode(message::StatusCode::OK);
 			response.SetHeader("Content-Type", "text/html; charset = UTF-8");
-			auto bodyWriter = response.GetBodyWriter();
-			bodyWriter.WriteLine("<!DOCTYPE html>")
-				.WriteLine("<html>")
-				.WriteLine("<head>")
-				.WriteLine("\t<title>Hello</title>")
-				.WriteLine("</head>")
-				.WriteLine("<body>")
-				.WriteLine("\t<h1>Hello, World!</h1>")
-				.WriteLine("</body>")
-				.WriteLine("</html>");
-		});
+			try
+			{
+				response.SetStatusCode(message::StatusCode::OK);
+				server::GetContext()->MakeFileDispatcher("index.html")->Dispatch(request, response);
+			}
+			catch (const std::exception& e)
+			{
+				response.GetBodyWriter().WriteLine(e.what());
+				response.SetStatusCode(message::StatusCode::NOT_FOUND);
+			}
+		}
+	);
 
-	server.Run(port);
+	server::Run(port, argc, argv);
 	return 0;
 }
