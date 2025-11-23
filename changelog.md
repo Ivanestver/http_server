@@ -1,3 +1,10 @@
+## [1.2.0] - 2025.11.23
+
+## Added
+- Send static files as the answer.
+- Application Context class that contains the app settings.
+- The server is now configured through functions.
+
 ## [1.1.1] - 2025.11.23
 
 ### Fixed
