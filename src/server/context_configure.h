@@ -3,6 +3,6 @@
 
 namespace server
 {
-	void ConfigureContext();
+	void ConfigureContext(const String& pathToRoot);
 	Context* GetInnerContext();
 }
