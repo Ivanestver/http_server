@@ -1,4 +1,4 @@
-#include "server/server.h"
+#include "server.h"
 #include "net_core/net_funcs.h"
 #include "parser/request_parser.h"
 #include "message/http_response.h"
@@ -14,8 +14,6 @@ namespace server
 
 	void Server::Run(port_t port)
 	{
-		ConfigureContext();
-
 		String errorMessage = net_core::Startup();
 		if (!errorMessage.is_empty())
 		{
