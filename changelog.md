@@ -1,3 +1,8 @@
+## [2.0.2] - 2026.01.24
+
+## Added
+- content length check to improve security
+
 ## [2.0.1] - 2026.01.24
 
 ## Added
