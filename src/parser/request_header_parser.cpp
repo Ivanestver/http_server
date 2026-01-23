@@ -1,6 +1,7 @@
 ﻿#include <cctype>
 #include "request_header_parser.h"
 #include "message/http_headers.h"
+#include <memory>
 
 using namespace message;
 
@@ -8,7 +9,7 @@ namespace parser
 {
     IHTTPHeaders* RequestHeadersParser::Parse() noexcept
     {
-        auto* headers = new HTTPHeaders();
+        auto headers = std::make_unique<HTTPHeaders>();
         for (const String& line : m_request)
         {
             reset(line);
@@ -27,7 +28,7 @@ namespace parser
 
             headers->SetHeaderValue(makeName(headerName), value);
         }
-        return headers;
+        return headers.release();
     }
 
     const String RequestHeadersParser::getNextToken() noexcept
