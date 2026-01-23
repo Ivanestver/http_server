@@ -13,15 +13,15 @@ namespace parser
         {
         }
 
-        message::IHTTPRequestStartLine* Parse() override;
+        message::IHTTPRequestStartLine* Parse() noexcept override;
 
     private:
-        String parseMethod();
-        bool isValidMethod(const String method);
-        String parsePath();
-        String parseProtocol();
+        String parseMethod() noexcept;
+        bool isValidMethod(const String method) noexcept;
+        String parsePath() noexcept;
+        String parseProtocol() noexcept;
 
-        bool isValidProtocol(const String& protocol);
+        bool isValidProtocol(const String& protocol) noexcept;
     };
 
 }

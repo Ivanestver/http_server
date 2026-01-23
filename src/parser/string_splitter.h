@@ -16,10 +16,10 @@ namespace parser
 
     public:
         StringSplitter(const String& request);
-        Result GetResult();
+        Result GetResult() noexcept;
 
     private:
-        String getNextRow();
+        String getNextRow() noexcept;
 
     private:
         String m_request;

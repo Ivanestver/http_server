@@ -14,7 +14,7 @@ namespace parser
     {
     }
 
-    const IHTTPRequest* RequestParser::Parse()
+    const IHTTPRequest* RequestParser::Parse() noexcept
     {
         StringSplitter::Result result = StringSplitter{ m_request }.GetResult();
 

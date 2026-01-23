@@ -7,7 +7,7 @@ namespace parser
     {
     }
 
-    StringSplitter::Result StringSplitter::GetResult()
+    StringSplitter::Result StringSplitter::GetResult() noexcept
     {
         Result res;
         res.m_startLine = getNextRow();
@@ -21,7 +21,7 @@ namespace parser
         return res;
     }
 
-    String StringSplitter::getNextRow()
+    String StringSplitter::getNextRow() noexcept
     {
         String s;
         for (; m_ptr < m_request.length(); ++m_ptr)

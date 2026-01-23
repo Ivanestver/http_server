@@ -3,7 +3,7 @@
 
 namespace parser
 {
-	message::IHTTPBody* PlainTextBodyParser::Parse()
+	message::IHTTPBody* PlainTextBodyParser::Parse() noexcept
 	{
 		String content = get_raw();
 		return new message::RequestPlainTextBody{ content, GetMimeType() };

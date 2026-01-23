@@ -6,7 +6,7 @@ using namespace message;
 
 namespace parser
 {
-    IHTTPHeaders* RequestHeadersParser::Parse()
+    IHTTPHeaders* RequestHeadersParser::Parse() noexcept
     {
         auto* headers = new HTTPHeaders();
         for (const String& line : m_request)
@@ -30,7 +30,7 @@ namespace parser
         return headers;
     }
 
-    const String RequestHeadersParser::getNextToken()
+    const String RequestHeadersParser::getNextToken() noexcept
     {
         String s;
         for (; has() && current_is_permitted(); moveNext())
@@ -40,7 +40,7 @@ namespace parser
         return s;
     }
 
-    String RequestHeadersParser::makeName(const String& dirtyName) const
+    String RequestHeadersParser::makeName(const String& dirtyName) const noexcept
     {
         if (dirtyName.length() > 1)
             return dirtyName.substr(0, dirtyName.length() - 1);

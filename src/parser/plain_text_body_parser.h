@@ -11,7 +11,7 @@ namespace parser
 			: RequestBodyParser(std::move(content), mimeType)
 		{ }
 
-		message::IHTTPBody* Parse() override;
+		message::IHTTPBody* Parse() noexcept override;
 	};
 
 	class PlainTextBodyParserFactory : public RequestBodyParserFactory

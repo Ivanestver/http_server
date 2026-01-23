@@ -14,11 +14,11 @@ namespace parser
             m_request = std::move(request);
         }
 
-        message::IHTTPHeaders* Parse() override;
+        message::IHTTPHeaders* Parse() noexcept override;
 
     private:
-        const String getNextToken();
-        String makeName(const String& dirtyName) const;
+        const String getNextToken() noexcept;
+        String makeName(const String& dirtyName) const noexcept;
 
     private:
         std::vector<String> m_request;

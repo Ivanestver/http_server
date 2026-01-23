@@ -9,7 +9,7 @@ namespace parser
 	public:
 		RequestParser(const String& request);
 
-		const message::IHTTPRequest* Parse();
+		const message::IHTTPRequest* Parse() noexcept;
 
 	private:
 		String m_request;

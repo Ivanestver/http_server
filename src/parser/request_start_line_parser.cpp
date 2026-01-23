@@ -5,7 +5,7 @@ using namespace message;
 
 namespace parser
 {
-    IHTTPRequestStartLine* RequestStartLineParser::Parse()
+    IHTTPRequestStartLine* RequestStartLineParser::Parse() noexcept
     {
         const String method = parseMethod();
         if (method.is_empty())
@@ -22,7 +22,7 @@ namespace parser
             return new HTTPRequestStartLine{ method, path, protocol };
     }
 
-    String RequestStartLineParser::parseMethod()
+    String RequestStartLineParser::parseMethod() noexcept
     {
         skip_forbidden();
         String method;
@@ -36,7 +36,7 @@ namespace parser
             return {};
     }
 
-    bool RequestStartLineParser::isValidMethod(const String method)
+    bool RequestStartLineParser::isValidMethod(const String method) noexcept
     {
         static std::array<String, 5> m_predefinedMethods{
            "GET", "POST", "PUT", "DELETE", "PATCH"
@@ -44,7 +44,7 @@ namespace parser
         return std::find(m_predefinedMethods.begin(), m_predefinedMethods.end(), method) != m_predefinedMethods.end();
     }
 
-    String RequestStartLineParser::parsePath()
+    String RequestStartLineParser::parsePath() noexcept
     {
         skip_forbidden();
         if (current() != '/')
@@ -56,7 +56,7 @@ namespace parser
         return path;
     }
 
-    String RequestStartLineParser::parseProtocol()
+    String RequestStartLineParser::parseProtocol() noexcept
     {
         skip_forbidden();
         String protocol;
@@ -77,7 +77,7 @@ namespace parser
             return {};
     }
 
-    bool RequestStartLineParser::isValidProtocol(const String& protocol)
+    bool RequestStartLineParser::isValidProtocol(const String& protocol) noexcept
     {
         static std::array<String, 4> protocols{
            "HTTP/0.9", "HTTP/1.0", "HTTP/1.1", "HTTP/2.0"

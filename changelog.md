@@ -1,3 +1,8 @@
+## [2.0.1] - 2026.01.24
+
+## Added
+- noexcept to some functions to improve performance
+
 ## [2.0.0] - 2025.11.23
 
 ## Added
