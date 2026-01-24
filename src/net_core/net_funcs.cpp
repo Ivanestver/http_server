@@ -52,8 +52,9 @@ namespace net_core
 	{
 		WSADATA wsaData;
 		int result = WSAStartup(MAKEWORD(2, 2), &wsaData);
-		if (result != 0)
-			return makeErrorMessage("WSAStartup", result);
+		static constexpr int STARTUP_SUCCESSFUL = 0;
+		if (result != STARTUP_SUCCESSFUL)
+			return makeErrorMessage("Startup", result);
 		return {};
 	}
 
@@ -74,7 +75,7 @@ namespace net_core
 	{
 		Socket sock{ eAF, eST, eProtocol };
 		if (sock.IsInvalid())
-			return { std::move(sock), makeErrorMessage("Socket", WSAGetLastError()) };
+			return { std::move(sock), makeErrorMessage("CreateSocket", WSAGetLastError()) };
 		else
 			return { std::move(sock), "" };
 	}
@@ -105,7 +106,7 @@ namespace net_core
 	{
 		int result = WSACleanup();
 		if (result != 0)
-			return makeErrorMessage("WSACleanup", result);
+			return makeErrorMessage("ClearUp", result);
 		return {};
 	}
 #else

@@ -11,7 +11,7 @@ using sockaddr_in_t = SOCKADDR_IN;
 using port_t = u_short;
 
 // Replacements for raw enumerations
-enum class AddressFamily : unsigned short
+enum class AddressFamily : unsigned char
 {
 	UNSPEC,  // unspecified
 	UNIX,    // local to host (pipes, portals)
@@ -45,7 +45,7 @@ enum class AddressFamily : unsigned short
 	NETDES,	// Network Designers OSI & gateway
 };
 
-enum class SockType : unsigned short
+enum class SockType : unsigned char
 {
 	UNSPEC = 0, // unspecified socket
 	STREAM = 1, // stream socket
@@ -63,7 +63,7 @@ enum class InAddr : unsigned long
 	NONE = INADDR_NONE
 };
 
-enum class IPProtocol : unsigned short
+enum class IPProtocol : unsigned char
 {
 	UNSPEC = 0,		// Unspecified protocol
 	ICMP = 1,		// ICMP protocol

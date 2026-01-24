@@ -41,7 +41,7 @@ namespace net_core
 		return *this;
 	}
 
-	bool Socket::IsInvalid() const
+	inline bool Socket::IsInvalid() const
 	{
 		return m_socket == invalid_socket_t;
 	}

@@ -7,17 +7,15 @@ namespace net_core
 	class NET_CORE Socket
 	{
 	public:
+		~Socket();
 		Socket(AddressFamily eAF, SockType eST, IPProtocol eProtocol = IPProtocol::UNSPEC);
 		explicit Socket(socket_t rawSocket);
 		Socket(const Socket&) = delete;
 		Socket(Socket&& other) noexcept;
-
-		~Socket();
-
 		Socket& operator=(const Socket&) = delete;
 		Socket& operator=(Socket&& other) noexcept;
 
-		bool IsInvalid() const;
+		inline bool IsInvalid() const;
 
 		socket_t operator*() const;
 
