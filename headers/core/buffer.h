@@ -3,6 +3,12 @@
 #include <vector>
 #include <type_traits>
 #include "core/export_decl.h"
+#include <memory>
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4251)
+#endif
 
 class CORE Buffer
 {
@@ -22,7 +28,7 @@ public:
 
 private:
 	struct Impl;
-	Impl* m_impl;
+	std::unique_ptr<Impl> m_impl;
 };
 
 template<typename T>
@@ -52,3 +58,7 @@ inline Buffer& operator <<(Buffer& buf, const char* value)
 {
 	return buf << std::string{ value };
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif

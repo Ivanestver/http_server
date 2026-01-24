@@ -6,15 +6,11 @@ struct Buffer::Impl
 };
 
 Buffer::Buffer()
-	: m_impl{ new Buffer::Impl{} }
+	: m_impl{ std::make_unique<Impl>() }
 {
 }
 
-Buffer::~Buffer()
-{
-	delete m_impl;
-	m_impl = nullptr;
-}
+Buffer::~Buffer() = default;
 
 const char* Buffer::data() const
 {
@@ -48,7 +44,8 @@ void Buffer::expand(size_t additional)
 
 void Buffer::trunk(size_t sizeToRemove)
 {
-	m_impl->m_buf.erase(m_impl->m_buf.begin(), m_impl->m_buf.begin() + sizeToRemove);
+	size_t realSize = std::min(sizeToRemove, m_impl->m_buf.size());
+	m_impl->m_buf.erase(m_impl->m_buf.begin(), m_impl->m_buf.begin() + realSize);
 }
 
 void Buffer::append(const void* src, size_t srcSize)
