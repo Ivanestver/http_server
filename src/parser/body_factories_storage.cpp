@@ -9,15 +9,7 @@ namespace parser
         return instance;
     }
 
-    BodyFactoriesStorage::~BodyFactoriesStorage()
-    {
-        for (const std::pair<String, RequestBodyParserFactory*>& p : m_factories)
-        {
-            delete p.second;
-        }
-    }
-
-    const RequestBodyParserFactory* BodyFactoriesStorage::GetFactory(const String& mimeType) const
+    std::shared_ptr<RequestBodyParserFactory> BodyFactoriesStorage::GetFactory(const String& mimeType) const
     {
         const auto it = m_factories.find(mimeType);
         if (it != m_factories.end())

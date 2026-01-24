@@ -27,7 +27,7 @@ namespace parser
         skip_forbidden();
         String method;
         // parse a method
-        for (; has() && current_is_permitted(); moveNext())
+        for (; has_next() && current_is_permitted(); moveNext())
             method = method + current();
 
         if (isValidMethod(method))
@@ -51,7 +51,7 @@ namespace parser
             return {};
 
         String path;
-        for (; has() && current_is_permitted(); moveNext())
+        for (; has_next() && current_is_permitted(); moveNext())
             path = path + current();
         return path;
     }
@@ -61,14 +61,14 @@ namespace parser
         skip_forbidden();
         String protocol;
         // First parse the protocol itself
-        for (size_t i = 0; i < 4 && has() && current_is_permitted(); moveNext(), i++)
+        for (size_t i = 0; i < 4 && has_next() && current_is_permitted(); moveNext(), i++)
             protocol = protocol + current();
 
         if (protocol != String{ "HTTP" })
             return protocol;
 
         // then parse the protocol version
-        for (; has() && current_is_permitted(); moveNext())
+        for (; has_next() && current_is_permitted(); moveNext())
             protocol = protocol + current();
 
         if (isValidProtocol(protocol))

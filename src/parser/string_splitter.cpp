@@ -12,7 +12,7 @@ namespace parser
         Result res;
         res.m_startLine = getNextRow();
         String row = getNextRow();
-        while (!row.is_empty())
+        while (!row.is_empty() && rowIsHeader(row))
         {
             res.m_headers.emplace_back(std::move(row));
             row = getNextRow();
@@ -35,5 +35,10 @@ namespace parser
                 s = s + m_request[m_ptr];
         }
         return s;
+    }
+
+    bool StringSplitter::rowIsHeader(const String& row) const noexcept
+    {
+        return !row.contains(':');
     }
 }

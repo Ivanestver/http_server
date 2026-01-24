@@ -2,6 +2,7 @@
 #include "core/str.h"
 #include <map>
 #include <type_traits>
+#include <memory>
 
 namespace parser
 {
@@ -14,20 +15,18 @@ namespace parser
 		void Register(const String& mimeType)
 		{
 			static_assert(std::is_base_of_v<RequestBodyParserFactory, FACTORY>, "FACTORY must be a body parser factory class");
-			m_factories.emplace(mimeType, new FACTORY{});
+			m_factories.emplace(mimeType, std::make_shared<FACTORY>());
 		}
 
 		static BodyFactoriesStorage& GetStorage();
 
-		~BodyFactoriesStorage();
-
-		const RequestBodyParserFactory* GetFactory(const String& mimeType) const;
+		std::shared_ptr<RequestBodyParserFactory> GetFactory(const String& mimeType) const;
 
 	private:
 		BodyFactoriesStorage();
 
 	private:
-		std::map<String, RequestBodyParserFactory*> m_factories;
+		std::map<String, std::shared_ptr<RequestBodyParserFactory>> m_factories;
 	};
 
 	template<typename Fn>

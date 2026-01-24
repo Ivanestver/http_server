@@ -7,6 +7,12 @@ using namespace message;
 
 namespace parser
 {
+    RequestHeadersParser::RequestHeadersParser(std::vector<String>&& request) noexcept
+		: RequestPartParser(String{})
+	{
+		m_request = std::move(request);
+	}
+
     IHTTPHeaders* RequestHeadersParser::Parse() noexcept
     {
         auto headers = std::make_unique<HTTPHeaders>();
@@ -16,12 +22,16 @@ namespace parser
             const String headerName = getNextToken();
             skip_forbidden();
             String value = getNextToken();
-            while (true)
+            size_t length = value.length();
+            while (length < line.length())
             {
                 skip_forbidden();
                 String v = getNextToken();
                 if (!v.is_empty())
+                {
                     value = value + v;
+                    length = value.length();
+                }
                 else
                     break;
             }
@@ -34,7 +44,7 @@ namespace parser
     const String RequestHeadersParser::getNextToken() noexcept
     {
         String s;
-        for (; has() && current_is_permitted(); moveNext())
+        for (; has_next() && current_is_permitted(); moveNext())
         {
             s = s + current();
         }

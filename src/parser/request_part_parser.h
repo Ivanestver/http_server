@@ -17,10 +17,12 @@ public:
 protected:
    inline char current() const
    {
+       if (ptr >= s.length())
+           throw std::out_of_range("Current char is out of bounds");
        return s[ptr];
    }
 
-   inline bool has() const noexcept
+   inline bool has_next() const noexcept
    {
       return ptr < s.length();
    }
@@ -32,7 +34,7 @@ protected:
 
    inline void skip_forbidden() noexcept
    {
-      while (has() && !is_permitted(current()))
+      while (has_next() && !current_is_permitted())
          moveNext();
    }
 
@@ -50,8 +52,7 @@ protected:
    inline void reset(const String& newS/* = {}*/) noexcept
    {
       ptr = 0;
-      if (!newS.is_empty())
-         s = newS;
+	  s = newS;
    }
 
    inline const String& get_raw() const noexcept

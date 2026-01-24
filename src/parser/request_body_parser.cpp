@@ -14,7 +14,7 @@ namespace parser
 	inline PRequestBodyParser createParser(STR&& content, const String& mimeType)
 	{
 		BodyFactoriesStorage& instance = BodyFactoriesStorage::GetStorage();
-		auto* factory = instance.GetFactory(mimeType);
+		auto factory = instance.GetFactory(mimeType);
 		if (factory)
 			return factory->Create(std::forward<STR>(content), mimeType);
 		else

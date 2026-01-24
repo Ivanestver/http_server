@@ -20,6 +20,7 @@ namespace parser
 
     private:
         String getNextRow() noexcept;
+        bool rowIsHeader(const String& row) const noexcept;
 
     private:
         String m_request;

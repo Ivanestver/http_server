@@ -8,11 +8,7 @@ namespace parser
     class RequestHeadersParser : public RequestPartParser<message::IHTTPHeaders>
     {
     public:
-        RequestHeadersParser(std::vector<String>&& request)
-            : RequestPartParser(String{})
-        {
-            m_request = std::move(request);
-        }
+        RequestHeadersParser(std::vector<String>&& request) noexcept;
 
         message::IHTTPHeaders* Parse() noexcept override;
 
