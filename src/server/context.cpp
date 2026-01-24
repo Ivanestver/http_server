@@ -23,7 +23,7 @@ namespace server
 		return std::make_unique<FileDispatcher>(m_settings.m_resourcePath + pathToFile);
 	}
 
-	Context* GetContext()
+	std::shared_ptr<Context> GetContext()
 	{
 		return GetInnerContext();
 	}

@@ -18,14 +18,12 @@ namespace server
 		{
 			Buffer buf;
 			buf << "No such file: " << m_pathToFile;
-			throw std::ios_base::failure{ buf.data()};
+			throw std::ios_base::failure{ buf.data() };
 		}
 
 		message::ResponseWriter writer = response.GetBodyWriter();
 		std::string line;
 		while (std::getline(in, line))
 			writer.WriteLine(line);
-
-		in.close();
 	}
 }

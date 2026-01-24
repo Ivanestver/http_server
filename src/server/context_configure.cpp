@@ -1,9 +1,8 @@
 #include "context_configure.h"
-#include <memory>
 
 namespace server
 {
-	std::unique_ptr<Context> context = nullptr;
+	std::shared_ptr<Context> context = nullptr;
 
 	void ConfigureContext(const String& pathToRoot)
 	{
@@ -13,8 +12,8 @@ namespace server
 		context.reset(new Context{ settings });
 	}
 
-	Context* GetInnerContext()
+	std::shared_ptr<Context> GetInnerContext()
 	{
-		return context.get();
+		return context;
 	}
 }

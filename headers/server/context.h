@@ -26,5 +26,5 @@ namespace server
 		ContextSettings m_settings;
 	};
 
-	SERVER Context* GetContext();
+	SERVER std::shared_ptr<Context> GetContext();
 }
