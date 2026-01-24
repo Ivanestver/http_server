@@ -32,7 +32,7 @@ namespace server
 			"PUT",
 			"PATCH"
 		};
-		return std::none_of(methodsMustHave.begin(), methodsMustHave.end(), [&method](const String& s) { return s != method; });
+		return std::none_of(methodsMustHave.begin(), methodsMustHave.end(), [&method](const String& s) { return s == method; });
 	}
 
 	bool contentLengthNotSuitFactualLength(const message::IHTTPRequest* request)

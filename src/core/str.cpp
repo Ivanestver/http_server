@@ -62,7 +62,8 @@ String String::operator+(const String& other) const noexcept
 
 String String::operator+(const std::string& other) const noexcept
 {
-	String s{ this->length() + other.length() };
+	String s;
+	s.m_impl->m_str.reserve(this->length() + other.size());
 	s.m_impl->m_str.append(this->m_impl->m_str).append(other);
 	return s;
 }
