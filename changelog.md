@@ -1,3 +1,8 @@
+## [2.0.3] - 2026.01.24
+
+## Added
+- Security measures for core library
+
 ## [2.0.2] - 2026.01.24
 
 ## Added
