@@ -34,6 +34,7 @@ namespace message
         std::vector<uint8_t> result = response.to_bytes();
 		std::vector<uint8_t> body = m_body.to_bytes();
 
+        result.reserve(result.size() + body.size());
         std::copy(body.begin(), body.end(), std::back_inserter(result));
         return result;
     }

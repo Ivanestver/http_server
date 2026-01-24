@@ -23,7 +23,7 @@ namespace message
 	class MESSAGE EmptyBody final : public IHTTPBody
 	{
 	public:
-		// ”наследовано через IHTTPBody
+		// наследовано через IHTTPBody
 		std::vector<uint8_t> ToBytes() const final
 		{
 			return {};

@@ -1,6 +1,11 @@
 ﻿#pragma once
-#include <map>
+#include <unordered_map>
 #include "message/i_http_headers.h"
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4251)
+#endif
 
 namespace message
 {
@@ -14,6 +19,10 @@ namespace message
 		const std::vector<THeaderKey> GetHeaderKeys() const noexcept final;
 
 	private:
-		std::map<THeaderKey, THeaderValue> m_headers;
+		std::unordered_map<THeaderKey, THeaderValue> m_headers;
 	};
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif

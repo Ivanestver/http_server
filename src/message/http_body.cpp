@@ -6,6 +6,7 @@ namespace message
 		: m_mimeType{ mimeType }
 	{
 	}
+
 	String HTTPBody::GetMIMEType() const
 	{
 		return m_mimeType;

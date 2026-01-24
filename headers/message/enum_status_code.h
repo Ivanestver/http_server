@@ -1,4 +1,5 @@
 #pragma once
+#include "core/str.h"
 
 namespace message
 {
@@ -14,5 +15,5 @@ namespace message
 		// Server error responses
 	};
 
-	const char* StatusCodeAsStr(StatusCode statusCode);
+	String StatusCodeAsStr(StatusCode statusCode);
 }

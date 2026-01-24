@@ -9,7 +9,12 @@ namespace message
 	class MESSAGE IHTTPRequest
 	{
 	public:
+		IHTTPRequest() = default;
 		virtual ~IHTTPRequest() = default;
+		IHTTPRequest(const IHTTPRequest&) = delete;
+		IHTTPRequest(IHTTPRequest&&) = delete;
+		IHTTPRequest& operator=(const IHTTPRequest&) = delete;
+		IHTTPRequest& operator=(IHTTPRequest&&) = delete;
 
 		virtual const IHTTPRequestStartLine* GetStartLine() const = 0;
 		virtual const IHTTPHeaders* GetHeaders() const = 0;

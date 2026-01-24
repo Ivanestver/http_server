@@ -3,9 +3,9 @@
 
 namespace message
 {
-    const char* StatusCodeAsStr(StatusCode statusCode)
+    String StatusCodeAsStr(StatusCode statusCode)
     {
-        static const std::unordered_map<StatusCode, const char*> m
+        static const std::unordered_map<StatusCode, String> m
         {
             {StatusCode::OK, "OK"},
             {StatusCode::FOUND, "Found"},
