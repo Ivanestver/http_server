@@ -1,3 +1,8 @@
+## [2.0.4] - 2026.01.24
+
+## Added
+- Security measures for net_core, parser, message, server libraries
+
 ## [2.0.3] - 2026.01.24
 
 ## Added
