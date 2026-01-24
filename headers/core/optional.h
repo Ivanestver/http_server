@@ -91,6 +91,9 @@ namespace std
 		>
 		constexpr optional(const optional<U>& other)
 		{
+			this->m_hasValue = other.m_hasValue;
+			if (this->m_hasValue)
+				std::memcpy(this->object, other.object, sizeof(this->object));
 		}
 
 		template<class U,
@@ -111,6 +114,11 @@ namespace std
 		>
 		constexpr optional(optional<U>&& other)
 		{
+			this->m_hasValue = other.m_hasValue;
+			if (this->m_hasValue)
+				std::memcpy(this->object, other.object, sizeof(this->object));
+			other.m_hasValue = false;
+			other.object = { 0 };
 		}
 
 		template<class... Args,
