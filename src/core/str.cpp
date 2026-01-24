@@ -10,7 +10,7 @@ struct String::Impl
 };
 
 String::String()
-	: m_impl{ new String::Impl{} }
+	: m_impl{ std::make_unique<Impl>() }
 {
 }
 
@@ -37,6 +37,12 @@ String::String(String&& other) noexcept
 	*this = std::move(other);
 }
 
+String::String(size_t newSize)
+	: String()
+{
+	m_impl->m_str.resize(newSize);
+}
+
 String& String::operator=(const String& other)
 {
 	m_impl->m_str = other.m_impl->m_str;
@@ -45,9 +51,7 @@ String& String::operator=(const String& other)
 
 String& String::operator=(String&& other) noexcept
 {
-	delete m_impl;
-	m_impl = other.m_impl;
-	other.m_impl = nullptr;
+	m_impl.reset(other.m_impl.release());
 	return *this;
 }
 
@@ -58,15 +62,8 @@ String String::operator+(const String& other) const noexcept
 
 String String::operator+(const std::string& other) const noexcept
 {
-	String s;
-	size_t thisLength = length();
-	s.m_impl->m_str.resize(thisLength + other.length());
-	for (size_t i = 0; i < thisLength; ++i)
-		s.m_impl->m_str[i] = m_impl->m_str[i];
-
-	for (size_t i = 0; i < other.length(); ++i)
-		s.m_impl->m_str[thisLength + i] = other[i];
-
+	String s{ this->length() + other.length() };
+	s.m_impl->m_str.append(this->m_impl->m_str).append(other);
 	return s;
 }
 
@@ -97,24 +94,21 @@ void String::operator<<(std::istream& buf) const noexcept
 	}
 }
 
-String::~String()
-{
-	delete m_impl;
-}
+String::~String() = default;
 
 char String::operator[](size_t idx) const
 {
 	if (idx >= m_impl->m_str.size())
-		throw std::out_of_range("Index was out of bounds");
+		throw std::out_of_range("Index is out of bounds");
 	return m_impl->m_str[idx];
 }
 
-size_t String::length() const
+inline size_t String::length() const
 {
 	return m_impl->m_str.length();
 }
 
-bool String::is_empty() const
+inline bool String::is_empty() const
 {
 	return m_impl->m_str.empty();
 }
@@ -123,9 +117,9 @@ std::vector<String> String::split(char separator) const
 {
 	std::vector<String> substrings;
 	std::vector<char> buf;
-	for (size_t i = 0; i < m_impl->m_str.size(); ++i)
+	for (char c : m_impl->m_str)
 	{
-		if (m_impl->m_str[i] == separator)
+		if (c == separator)
 		{
 			buf.emplace_back('\0');
 			substrings.emplace_back(buf.data());
@@ -133,7 +127,7 @@ std::vector<String> String::split(char separator) const
 		}
 		else
 		{
-			buf.emplace_back(m_impl->m_str[i]);
+			buf.emplace_back(c);
 		}
 	}
 	buf.emplace_back('\0');
@@ -143,27 +137,27 @@ std::vector<String> String::split(char separator) const
 
 String String::replace(char oldChar, char newChar) const
 {
-	String s;
-	s.m_impl->m_str.resize(this->length());
+	String s{ this->length() };
 	for (size_t i = 0; i < length(); ++i)
 	{
 		if (m_impl->m_str[i] == oldChar)
 			s.m_impl->m_str[i] = newChar;
 		else
-			s.m_impl->m_str[i] = m_impl->m_str[i];
+			s.m_impl->m_str[i] = this->m_impl->m_str[i];
 	}
 	return s;
 }
 
 const String String::substr(size_t start, size_t count) const
 {
-	if (start >= count || start >= length() || count > (length() - 1 - start))
+	if (start >= length())
 		return String{};
 
-	std::string s;
-	for (size_t i = 0; i < count; ++i)
-		s += m_impl->m_str[start + i];
-	return String{ s };
+	String s{ count };
+	size_t realCount = std::min(count, length() - 1 - start);
+	for (size_t i = 0; i < realCount; ++i)
+		s.m_impl->m_str[i] = this->m_impl->m_str[start + i];
+	return s;
 }
 
 bool String::contains(const char c) const noexcept
@@ -214,11 +208,6 @@ size_t String::getSize(const char* str) const noexcept
 	return size;
 }
 
-void String::allocNewStr(size_t size) noexcept
-{
-	m_impl->m_str.resize(size);
-}
-
 std::ostream& operator<<(std::ostream& buf, const String& s)
 {
 	s >> buf;
@@ -257,7 +246,9 @@ bool operator!=(const String& left, const String& right)
 
 bool operator<(const String& left, const String& right)
 {
-	size_t minSize = std::min(left.length(), right.length());
+	const size_t leftLength = left.length();
+	const size_t rightLength = right.length();
+	size_t minSize = std::min(leftLength, rightLength);
 	for (size_t i = 0; i < minSize; ++i)
 	{
 		if (left[i] == right[i])
@@ -268,7 +259,5 @@ bool operator<(const String& left, const String& right)
 
 		return true;
 	}
-	if (left.length() == right.length())
-		return false;
-	return left.length() < right.length();
+	return leftLength < rightLength;
 }

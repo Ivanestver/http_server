@@ -2,7 +2,14 @@
 #include "str_fw.h"
 #include <vector>
 #include <string>
+#include <memory>
 #include "buffer.h"
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4251)
+#endif
+
 
 class CORE String
 {
@@ -12,6 +19,7 @@ public:
 	String(const std::string& str);
 	String(const String& other);
 	String(String&& other) noexcept;
+	String(size_t newSize);
 
 	String& operator=(const String& other);
 	String& operator=(String&& other) noexcept;
@@ -26,8 +34,8 @@ public:
 
 	char operator[](size_t idx) const;
 
-	size_t length() const;
-	bool is_empty() const;
+	inline size_t length() const;
+	inline bool is_empty() const;
 
 	std::vector<String> split(char separator) const;
 	String replace(char oldChar, char newChar) const;
@@ -45,11 +53,10 @@ public:
 
 private:
 	size_t getSize(const char* str) const noexcept;
-	inline void allocNewStr(size_t size) noexcept;
 
 private:
 	struct Impl;
-	Impl* m_impl{ nullptr };
+	std::unique_ptr<Impl> m_impl;
 };
 
 CORE std::ostream& operator <<(std::ostream& buf, const String& s);
@@ -111,3 +118,7 @@ namespace std
 		}
 	};
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
